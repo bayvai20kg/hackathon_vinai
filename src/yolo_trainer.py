@@ -9,6 +9,7 @@ from typing import Any
 import numpy as np
 import torch
 import yaml
+from tqdm.auto import tqdm
 
 from .active_learning import annotate_pair_confusion
 from .config import PipelineConfig, Taxonomy
@@ -100,22 +101,30 @@ def build_yolo_seg_split(
     }
 
 
+def _index_images(folder: Path) -> dict[str, Path]:
+    if not folder.exists():
+        return {}
+    exts = {".jpg", ".jpeg", ".png", ".bmp", ".webp"}
+    return {p.stem: p for p in sorted(folder.rglob("*")) if p.is_file() and p.suffix.lower() in exts}
+
+
 def prepare_yolo_seg_dataset(
     cfg: PipelineConfig,
     taxonomy: Taxonomy,
     out_ds_dir: Path | None = None,
 ) -> dict[str, Any]:
     """Merge human_verified (priority) + auto_labeled into a clean YOLO-seg train/val dataset."""
+    src_index = _index_images(cfg.images_dir)
     samples: dict[str, tuple[Path, Path, str]] = {}
     for lbl in sorted(cfg.dirs.auto_labeled_labels.glob("*.txt")):
         stem = lbl.stem
-        img = _find_matching_image(cfg.dirs.auto_labeled_images, stem) or _find_matching_image(cfg.images_dir, stem)
+        img = _find_matching_image(cfg.dirs.auto_labeled_images, stem) or src_index.get(stem)
         if img is not None:
             samples[stem] = (img, lbl, "auto")
 
     for lbl in sorted(cfg.dirs.human_verified_labels.glob("*.txt")):
         stem = lbl.stem
-        img = _find_matching_image(cfg.dirs.human_verified_images, stem) or _find_matching_image(cfg.images_dir, stem)
+        img = _find_matching_image(cfg.dirs.human_verified_images, stem) or src_index.get(stem)
         if img is not None:
             samples[stem] = (img, lbl, "human")
 
@@ -142,11 +151,17 @@ def train_yolo11_seg(
     imgsz: int | None = None,
     custom_samples: dict[str, tuple[Path, Path, str]] | None = None,
     custom_ds_dir: Path | None = None,
+    data_yaml: str | Path | None = None,
 ) -> dict[str, Any]:
-    """Train or retrain YOLO11-seg on either merged production data or custom sample dict."""
+    """Train or retrain YOLO11-seg on merged production data, custom sample dict, or an existing data.yaml."""
     cfg.configure_ultralytics_env()
 
-    if custom_samples is not None:
+    if data_yaml is not None:
+        data_yaml_path = Path(data_yaml).resolve()
+        if not data_yaml_path.exists():
+            raise FileNotFoundError(f"data.yaml not found: {data_yaml_path}")
+        ds_info = {"data_yaml": str(data_yaml_path), "custom_data_yaml": True}
+    elif custom_samples is not None:
         ds_info = build_yolo_seg_split(
             samples=custom_samples,
             out_ds_dir=custom_ds_dir or (cfg.dirs.work_dir / "custom_yolo_ds"),
@@ -181,20 +196,40 @@ def train_yolo11_seg(
         dst_base.parent.mkdir(parents=True, exist_ok=True)
         cwd_base.replace(dst_base)
 
-    results = model.train(
-        data=str(ds_info["data_yaml"]),
-        epochs=epochs_val,
-        imgsz=imgsz_val,
-        batch=batch_val,
-        workers=workers_val,
-        amp=amp_val,
-        device=device,
-        project=str(cfg.dirs.runs_dir),
-        name=run_name,
-        exist_ok=True,
-        verbose=True,
-        plots=True,
-    )
+    epoch_bar = tqdm(total=epochs_val, desc=f"Train {Path(base_model).stem} ({run_name})", unit="epoch", leave=True)
+
+    def _on_fit_epoch_end(trainer) -> None:
+        epoch_bar.n = min(epochs_val, int(trainer.epoch) + 1)
+        m = getattr(trainer, "metrics", {}) or {}
+        postfix = {}
+        for k, short in (
+            ("metrics/mAP50(B)", "box_mAP50"),
+            ("metrics/mAP50(M)", "mask_mAP50"),
+        ):
+            if k in m:
+                postfix[short] = f"{float(m[k]):.3f}"
+        if postfix:
+            epoch_bar.set_postfix(postfix)
+        epoch_bar.refresh()
+
+    model.add_callback("on_fit_epoch_end", _on_fit_epoch_end)
+    try:
+        results = model.train(
+            data=str(ds_info["data_yaml"]),
+            epochs=epochs_val,
+            imgsz=imgsz_val,
+            batch=batch_val,
+            workers=workers_val,
+            amp=amp_val,
+            device=device,
+            project=str(cfg.dirs.runs_dir),
+            name=run_name,
+            exist_ok=True,
+            verbose=True,
+            plots=True,
+        )
+    finally:
+        epoch_bar.close()
 
     save_dir = Path(results.save_dir)
     best_pt = save_dir / "weights" / "best.pt"
@@ -247,7 +282,7 @@ def predict_yolo11_with_uncertainty(
     preds_by_stem: dict[str, list[InstancePred]] = {}
 
     try:
-        for img_path in image_paths:
+        for img_path in tqdm(image_paths, desc="YOLO11 AL Inference", unit="img", mininterval=1.0):
             res_list = model.predict(
                 source=str(img_path),
                 conf=raw_conf,

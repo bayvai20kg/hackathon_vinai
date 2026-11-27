@@ -144,34 +144,58 @@ def load_taxonomy(path: str | Path) -> Taxonomy:
     )
 
 
-def load_pipeline_config(project_root: str | Path, config_path: str | Path | None = None) -> PipelineConfig:
+def _resolve_override_path(root: Path, value: str | Path) -> Path:
+    p = Path(value)
+    return p.resolve() if p.is_absolute() else (root / p).resolve()
+
+
+def load_pipeline_config(
+    project_root: str | Path,
+    config_path: str | Path | None = None,
+    images_dir: str | Path | None = None,
+    labels_dir: str | Path | None = None,
+    work_dir: str | Path | None = None,
+) -> PipelineConfig:
     root = Path(project_root).resolve()
     cfg_file = Path(config_path) if config_path else root / "configs" / "pipeline.yaml"
     raw = yaml.safe_load(cfg_file.read_text(encoding="utf-8"))
     paths = raw["paths"]
 
-    work_dir = (root / paths["work_dir"]).resolve()
+    resolved_work_dir = _resolve_override_path(root, work_dir) if work_dir else (root / paths["work_dir"]).resolve()
+    ul_cfg_dir = (
+        resolved_work_dir / ".ultralytics"
+        if work_dir
+        else (root / paths["ultralytics_config_dir"]).resolve()
+    )
     dirs = WorkspaceDirs(
         root=root,
-        work_dir=work_dir,
+        work_dir=resolved_work_dir,
         weights_dir=(root / paths["weights_dir"]).resolve(),
-        ultralytics_config_dir=(root / paths["ultralytics_config_dir"]).resolve(),
-        auto_labeled_labels=work_dir / "auto_labeled" / "labels",
-        auto_labeled_images=work_dir / "auto_labeled" / "images",
-        human_verified_labels=work_dir / "human_verified" / "labels",
-        human_verified_images=work_dir / "human_verified" / "images",
-        cvat_export_dir=work_dir / "cvat_export",
-        cvat_import_dir=work_dir / "cvat_import",
-        yolo_dataset_dir=work_dir / "dataset_yolo",
-        runs_dir=work_dir / "runs",
-        reports_dir=work_dir / "reports",
+        ultralytics_config_dir=ul_cfg_dir,
+        auto_labeled_labels=resolved_work_dir / "auto_labeled" / "labels",
+        auto_labeled_images=resolved_work_dir / "auto_labeled" / "images",
+        human_verified_labels=resolved_work_dir / "human_verified" / "labels",
+        human_verified_images=resolved_work_dir / "human_verified" / "images",
+        cvat_export_dir=resolved_work_dir / "cvat_export",
+        cvat_import_dir=resolved_work_dir / "cvat_import",
+        yolo_dataset_dir=resolved_work_dir / "dataset_yolo",
+        runs_dir=resolved_work_dir / "runs",
+        reports_dir=resolved_work_dir / "reports",
     )
     dirs.ensure_all()
 
+    resolved_images = _resolve_override_path(root, images_dir) if images_dir else (root / paths["images_dir"]).resolve()
+    if labels_dir is None:
+        resolved_labels = (root / paths["legacy_labels_dir"]).resolve()
+    elif str(labels_dir).strip() == "":
+        resolved_labels = resolved_work_dir / "_no_legacy_labels"
+    else:
+        resolved_labels = _resolve_override_path(root, labels_dir)
+
     cfg = PipelineConfig(
         project_root=root,
-        images_dir=(root / paths["images_dir"]).resolve(),
-        legacy_labels_dir=(root / paths["legacy_labels_dir"]).resolve(),
+        images_dir=resolved_images,
+        legacy_labels_dir=resolved_labels,
         dirs=dirs,
         detector=dict(raw["detector"]),
         segmenter=dict(raw["segmenter"]),

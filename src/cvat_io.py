@@ -179,7 +179,7 @@ def _zip_directory(src_dir: Path, zip_path: Path) -> None:
 
 def _index_workspace_images(images_dir: Path) -> dict[str, Path]:
     exts = {".jpg", ".jpeg", ".png", ".bmp", ".webp"}
-    return {p.stem: p for p in images_dir.iterdir() if p.is_file() and p.suffix.lower() in exts}
+    return {p.stem: p for p in sorted(images_dir.rglob("*")) if p.is_file() and p.suffix.lower() in exts}
 
 
 def import_cvat_annotations(

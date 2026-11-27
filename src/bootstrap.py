@@ -7,6 +7,7 @@ from pathlib import Path
 import cv2
 import numpy as np
 import torch
+from tqdm.auto import tqdm
 
 from .active_learning import annotate_pair_confusion
 from .config import PipelineConfig, Taxonomy
@@ -420,7 +421,7 @@ class ColdStartBootstrapper:
         pair_margin = float(al_cfg.get("pair_confusion_margin", 0.20))
 
         preds_by_stem: dict[str, list[InstancePred]] = {}
-        for img_path in image_paths:
+        for img_path in tqdm(image_paths, desc=f"Bootstrap ({self.backend_name})", unit="img", mininterval=1.0):
             im = cv2.imread(str(img_path))
             if im is None:
                 continue

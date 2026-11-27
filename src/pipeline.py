@@ -9,6 +9,7 @@ from pathlib import Path
 from typing import Any
 
 import cv2
+from tqdm.auto import tqdm
 
 from .active_learning import ImageALResult, evaluate_image_active_learning
 from .bootstrap import ColdStartBootstrapper
@@ -22,7 +23,7 @@ from .yolo_trainer import predict_yolo11_with_uncertainty, train_yolo11_seg
 
 def _list_all_images(images_dir: Path) -> list[Path]:
     exts = {".jpg", ".jpeg", ".png", ".bmp", ".webp"}
-    return sorted(p for p in images_dir.iterdir() if p.is_file() and p.suffix.lower() in exts)
+    return sorted(p for p in images_dir.rglob("*") if p.is_file() and p.suffix.lower() in exts)
 
 
 def _existing_labeled_stems(cfg: PipelineConfig) -> set[str]:
@@ -157,9 +158,18 @@ def cmd_warmup_export(
     force_sam3: bool = False,
     force_fallback: bool = False,
     config_path: Path | None = None,
+    images_dir: Path | None = None,
+    labels_dir: Path | str | None = None,
+    work_dir: Path | None = None,
 ) -> dict[str, Any]:
     """Step 1: Sample diverse images, generate bootstrap SAM pre-labels, and export CVAT ZIP."""
-    cfg = load_pipeline_config(project_root, config_path=config_path)
+    cfg = load_pipeline_config(
+        project_root,
+        config_path=config_path,
+        images_dir=images_dir,
+        labels_dir=labels_dir,
+        work_dir=work_dir,
+    )
     taxonomy = load_taxonomy(project_root / "configs" / "classes_11.yaml")
 
     selected = select_diverse_images(cfg.images_dir, num_images, exclude_stems=_existing_labeled_stems(cfg))
@@ -170,10 +180,10 @@ def cmd_warmup_export(
     bootstrapper.close()
 
     segmenter = Segmenter(cfg, force_sam3=force_sam3, force_fallback=force_fallback)
-    for img_path in selected:
+    seg_backend = segmenter.backend_name
+    for img_path in tqdm(selected, desc=f"{seg_backend} Segment", unit="img", mininterval=1.0):
         if preds.get(img_path.stem):
             segmenter.refine_instances(img_path, preds[img_path.stem])
-    seg_backend = segmenter.backend_name
     segmenter.close()
 
     al_results = _score_predictions(selected, preds, cfg, taxonomy)
@@ -196,9 +206,22 @@ def cmd_warmup_export(
     }
 
 
-def cmd_import_cvat(project_root: Path, import_path: Path, config_path: Path | None = None) -> dict[str, Any]:
+def cmd_import_cvat(
+    project_root: Path,
+    import_path: Path,
+    config_path: Path | None = None,
+    images_dir: Path | None = None,
+    labels_dir: Path | str | None = None,
+    work_dir: Path | None = None,
+) -> dict[str, Any]:
     """Import human-corrected annotations from CVAT ZIP/JSON/folder into human_verified/."""
-    cfg = load_pipeline_config(project_root, config_path=config_path)
+    cfg = load_pipeline_config(
+        project_root,
+        config_path=config_path,
+        images_dir=images_dir,
+        labels_dir=labels_dir,
+        work_dir=work_dir,
+    )
     taxonomy = load_taxonomy(project_root / "configs" / "classes_11.yaml")
     return import_cvat_annotations(import_path, cfg, taxonomy)
 
@@ -211,9 +234,19 @@ def cmd_train(
     batch: int | None = None,
     imgsz: int | None = None,
     config_path: Path | None = None,
+    images_dir: Path | None = None,
+    labels_dir: Path | str | None = None,
+    work_dir: Path | None = None,
+    data_yaml: Path | None = None,
 ) -> dict[str, Any]:
-    """Step 1/5: Train or retrain YOLO11-seg on merged human_verified + auto_labeled data."""
-    cfg = load_pipeline_config(project_root, config_path=config_path)
+    """Step 1/5: Train or retrain YOLO11-seg on merged human_verified + auto_labeled data or custom data.yaml."""
+    cfg = load_pipeline_config(
+        project_root,
+        config_path=config_path,
+        images_dir=images_dir,
+        labels_dir=labels_dir,
+        work_dir=work_dir,
+    )
     taxonomy = load_taxonomy(project_root / "configs" / "classes_11.yaml")
     return train_yolo11_seg(
         cfg=cfg,
@@ -223,6 +256,7 @@ def cmd_train(
         epochs=epochs,
         batch=batch,
         imgsz=imgsz,
+        data_yaml=data_yaml,
     )
 
 
@@ -235,9 +269,18 @@ def cmd_al_step(
     force_sam3: bool = False,
     force_fallback: bool = False,
     config_path: Path | None = None,
+    images_dir: Path | None = None,
+    labels_dir: Path | str | None = None,
+    work_dir: Path | None = None,
 ) -> dict[str, Any]:
     """Steps 2-4: YOLO11 inference -> uncertainty routing -> SAM3/2.1 auto-label (>0.85) + CVAT export (<0.60/uncertain)."""
-    cfg = load_pipeline_config(project_root, config_path=config_path)
+    cfg = load_pipeline_config(
+        project_root,
+        config_path=config_path,
+        images_dir=images_dir,
+        labels_dir=labels_dir,
+        work_dir=work_dir,
+    )
     taxonomy = load_taxonomy(project_root / "configs" / "classes_11.yaml")
 
     labeled = _existing_labeled_stems(cfg)
@@ -250,19 +293,13 @@ def cmd_al_step(
     print(f"[AL-Step] Running YOLO11-seg inference on {len(unlabeled)} unlabeled images...")
     preds = predict_yolo11_with_uncertainty(model_weights, unlabeled, cfg, taxonomy)
 
-    # First pass AL check (before SAM) so we know which images are high-conf easy candidates vs hard
-    pre_al = _score_predictions(unlabeled, preds, cfg, taxonomy)
     auto_thresh = float(cfg.active_learning.get("auto_label_conf_thresh", 0.85))
 
-    # Run SAM on:
-    # 1) All easy candidate images (all boxes > 0.85 -> required by Step 3 Auto-Labeling!)
-    # 2) Hard images that have boxes (so CVAT pre-labels have crisp SAM polygons!)
     segmenter = Segmenter(cfg, force_sam3=force_sam3, force_fallback=force_fallback)
     seg_backend = segmenter.backend_name
-    for img_path in unlabeled:
+    for img_path in tqdm(unlabeled, desc=f"{seg_backend} Segment", unit="img", mininterval=1.0):
         insts = preds.get(img_path.stem, [])
         if insts:
-            # Feed YOLO11 bounding boxes into SAM to generate masks
             segmenter.refine_instances(img_path, insts, keep_existing_poly_if_sam_fails=False)
     segmenter.close()
 
@@ -323,9 +360,18 @@ def cmd_demo_50(
     force_sam3: bool = False,
     force_fallback: bool = False,
     config_path: Path | None = None,
+    images_dir: Path | None = None,
+    labels_dir: Path | str | None = None,
+    work_dir: Path | None = None,
 ) -> dict[str, Any]:
     """Run full end-to-end pipeline test on 50 diverse images without modifying production verified labels."""
-    cfg = load_pipeline_config(project_root, config_path=config_path)
+    cfg = load_pipeline_config(
+        project_root,
+        config_path=config_path,
+        images_dir=images_dir,
+        labels_dir=labels_dir,
+        work_dir=work_dir,
+    )
     taxonomy = load_taxonomy(project_root / "configs" / "classes_11.yaml")
 
     demo_dir = cfg.dirs.work_dir / "demo_50"
@@ -352,7 +398,7 @@ def cmd_demo_50(
     # 3. SAM3 / SAM2.1 mask generation on bootstrap boxes
     segmenter = Segmenter(cfg, force_sam3=force_sam3, force_fallback=force_fallback)
     seg_backend = segmenter.backend_name
-    for img_path in selected:
+    for img_path in tqdm(selected, desc=f"{seg_backend} Bootstrap Segment", unit="img", mininterval=1.0):
         if boot_preds.get(img_path.stem):
             segmenter.refine_instances(img_path, boot_preds[img_path.stem], keep_existing_poly_if_sam_fails=False)
     segmenter.close()
@@ -400,7 +446,8 @@ def cmd_demo_50(
     al_preds = predict_yolo11_with_uncertainty(best_weights, selected, cfg, taxonomy)
 
     segmenter = Segmenter(cfg, force_sam3=force_sam3, force_fallback=force_fallback)
-    for img_path in selected:
+    seg_backend_al = segmenter.backend_name
+    for img_path in tqdm(selected, desc=f"{seg_backend_al} AL Segment", unit="img", mininterval=1.0):
         insts = al_preds.get(img_path.stem, [])
         if insts:
             segmenter.refine_instances(img_path, insts, keep_existing_poly_if_sam_fails=False)

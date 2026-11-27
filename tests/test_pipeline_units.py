@@ -116,3 +116,19 @@ def test_cvat_export_and_import_roundtrip(tmp_path: Path) -> None:
     assert imported_lbl.exists()
     loaded = read_yolo_seg_file(imported_lbl, 1280, 720)
     assert len(loaded) == 1 and loaded[0].class_id == 9
+
+
+def test_custom_dataset_overrides(tmp_path: Path) -> None:
+    root = Path(__file__).resolve().parents[1]
+    custom_imgs = tmp_path / "other_imgs"
+    custom_imgs.mkdir()
+    cfg = load_pipeline_config(
+        root,
+        images_dir=custom_imgs,
+        labels_dir="",
+        work_dir=tmp_path / "other_work",
+    )
+    assert cfg.images_dir == custom_imgs.resolve()
+    assert not cfg.legacy_labels_dir.exists()
+    assert cfg.dirs.work_dir == (tmp_path / "other_work").resolve()
+
