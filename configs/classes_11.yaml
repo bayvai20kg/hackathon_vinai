@@ -1,0 +1,160 @@
+# 11-Class Instance Segmentation Taxonomy (YOLO-seg fixed IDs 0..10)
+# Reference: user-provided specification image
+
+num_classes: 11
+
+classes:
+  0:
+    name: "Car"
+    name_vi: "Ô tô con"
+    color: "#2563eb"
+    description_vi: "Sedan, SUV, minivan, xe 7 chỗ, bán tải, taxi, xe điện du lịch, xe cứu thương dạng van. Xe 9-15 chỗ thuộc Ô tô con."
+    text_prompts:
+      - "sedan car"
+      - "suv car"
+      - "minivan car"
+      - "pickup truck"
+      - "taxi car"
+    rule_notes: "Includes 9-15 seat vans/minibuses and van-type ambulances."
+
+  1:
+    name: "Bus"
+    name_vi: "Xe buýt / xe khách"
+    color: "#f59e0b"
+    description_vi: "Xe buýt, xe khách từ 16 chỗ trở lên. Xe 9-15 chỗ thuộc Ô tô con."
+    text_prompts:
+      - "city bus"
+      - "coach bus"
+      - "passenger bus"
+    rule_notes: "16+ seat buses/coaches only; 9-15 seaters belong to Car (0)."
+
+  2:
+    name: "Truck"
+    name_vi: "Xe tải"
+    color: "#ef4444"
+    description_vi: "Xe tải các cỡ, xe ben, xe bồn, xe cứu hỏa, đầu kéo (chỉ phần cabin và thân đầu kéo)."
+    text_prompts:
+      - "box truck"
+      - "dump truck"
+      - "tanker truck"
+      - "semi truck tractor cab"
+      - "fire truck"
+    rule_notes: "For tractor-trailers, mask ONLY the tractor cab/body; trailer belongs to Other vehicle (3)."
+
+  3:
+    name: "Other vehicle"
+    name_vi: "Phương tiện khác"
+    color: "#8b5cf6"
+    description_vi: "Ba gác máy, xích lô, xe lam, xe công trình, xe máy cày, rơ-moóc và sơ-mi rơ-moóc, mọi phương tiện không thuộc lớp khác."
+    text_prompts:
+      - "semi-trailer"
+      - "cargo container trailer"
+      - "tricycle cart"
+      - "cyclo rickshaw"
+      - "construction vehicle"
+      - "excavator"
+      - "tractor"
+    rule_notes: "Includes trailers/semi-trailers detached or attached to tractor cab, motor tricycles, cyclos, construction machinery."
+
+  4:
+    name: "Motorcycle"
+    name_vi: "Xe máy (không người)"
+    color: "#14b8a6"
+    description_vi: "Xe máy, xe tay ga, xe điện 2 bánh kiểu xe máy, không có người ngồi (đang đỗ hoặc đang dắt)."
+    text_prompts:
+      - "parked motorcycle without rider"
+      - "parked motorbike scooter"
+    rule_notes: "2-wheel motorbike/scooter/e-motorbike with NO seated rider (parked or being walked/pushed)."
+
+  5:
+    name: "Motorcyclist"
+    name_vi: "Xe máy (có người)"
+    color: "#ec4899"
+    description_vi: "Xe máy có ít nhất một người ngồi: một instance duy nhất phủ cả xe và mọi người trên xe."
+    text_prompts:
+      - "person riding motorcycle"
+      - "motorcyclist on motorbike"
+    rule_notes: "SINGLE merged instance covering BOTH the motorcycle AND all riders/passengers sitting on it."
+
+  6:
+    name: "Bicycle"
+    name_vi: "Xe đạp (không người)"
+    color: "#84cc16"
+    description_vi: "Xe đạp, xe đạp điện kiểu xe đạp, không có người (đang đỗ hoặc đang dắt)."
+    text_prompts:
+      - "parked bicycle without rider"
+    rule_notes: "Bicycle or bicycle-style e-bike with NO seated rider (parked or being pushed)."
+
+  7:
+    name: "Cyclist"
+    name_vi: "Xe đạp (có người)"
+    color: "#f97316"
+    description_vi: "Xe đạp có người đi: một instance duy nhất phủ cả xe đạp và người."
+    text_prompts:
+      - "person riding bicycle"
+      - "cyclist on bicycle"
+    rule_notes: "SINGLE merged instance covering BOTH the bicycle AND the rider."
+
+  8:
+    name: "Pedestrian"
+    name_vi: "Người đi bộ"
+    color: "#06b6d4"
+    description_vi: "Mọi người không ngồi trên phương tiện: đi bộ, đứng, ngồi, trẻ em, người dắt xe."
+    text_prompts:
+      - "pedestrian person walking"
+      - "person standing on sidewalk"
+    rule_notes: "Anyone NOT sitting on a vehicle (walking, standing, sitting on curb, child, person pushing a bike)."
+
+  9:
+    name: "Sign"
+    name_vi: "Biển báo"
+    color: "#eab308"
+    description_vi: "Biển báo hiệu đường bộ, biển chỉ dẫn, biển công trường. Chỉ phủ mặt biển, không phủ cột."
+    text_prompts:
+      - "traffic road sign plate"
+      - "directional road sign"
+    rule_notes: "Mask ONLY the sign board/face; DO NOT include the mounting pole/post."
+
+  10:
+    name: "Traffic light"
+    name_vi: "Đèn giao thông"
+    color: "#22c55e"
+    description_vi: "Cả hộp đèn tín hiệu (xe cộ, người đi bộ), không chỉ bóng đang sáng."
+    text_prompts:
+      - "traffic light signal box"
+      - "pedestrian traffic signal"
+    rule_notes: "Mask the ENTIRE traffic signal housing/box, NOT just the lit bulb."
+
+# Legacy 4-class mapping observed in raw ./labels/*.txt (bbox-only priors)
+legacy_4class_mapping:
+  0:
+    name: "legacy_two_wheeler"
+    candidate_target_classes: [4, 5, 6, 7]
+    default_target_class: 5
+    prior_conf: 0.55
+  1:
+    name: "legacy_car"
+    candidate_target_classes: [0]
+    default_target_class: 0
+    prior_conf: 0.72
+  2:
+    name: "legacy_bus"
+    candidate_target_classes: [1]
+    default_target_class: 1
+    prior_conf: 0.72
+  3:
+    name: "legacy_truck"
+    candidate_target_classes: [2, 3]
+    default_target_class: 2
+    prior_conf: 0.60
+
+# High-risk confusion pairs for Active Learning margin scoring
+confusion_pairs:
+  - [4, 5]   # Motorcycle vs Motorcyclist
+  - [6, 7]   # Bicycle vs Cyclist
+  - [5, 7]   # Motorcyclist vs Cyclist
+  - [4, 6]   # Motorcycle vs Bicycle
+  - [0, 1]   # Car (9-15 seats) vs Bus (16+ seats)
+  - [2, 3]   # Truck (cab) vs Other vehicle (trailer / machinery)
+  - [7, 8]   # Cyclist vs Pedestrian (walking/pushing bike)
+  - [5, 8]   # Motorcyclist vs Pedestrian (walking/pushing bike)

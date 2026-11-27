@@ -1,0 +1,68 @@
+# Active Learning + SAM 3 + YOLO11 Pre-Labeling Pipeline Configuration
+
+paths:
+  images_dir: "images"
+  legacy_labels_dir: "labels"
+  work_dir: "pipeline_work"
+  weights_dir: "weights"
+  ultralytics_config_dir: "pipeline_work/.ultralytics"
+
+detector:
+  # Default YOLO11 segmentation model for warm-up and active learning iterations
+  base_model: "yolo11n-seg.pt"
+  # Bootstrap open-vocab / fallback models (used before warm-up checkpoint exists)
+  bootstrap_yoloe_model: "yoloe-11s-seg-pf.pt"
+  bootstrap_coco_model: "yolo11n-seg.pt"
+  imgsz: 640
+  # Hardware-safe defaults for 4GB VRAM / 8GB RAM (raise batch/imgsz on Colab/server)
+  batch: 4
+  epochs_warmup: 30
+  epochs_retrain: 25
+  workers: 0
+  amp: true
+  device: "auto"
+  # Inference thresholds
+  predict_conf: 0.25
+  raw_probe_conf: 0.15
+  nms_iou: 0.55
+
+segmenter:
+  # Preferred model: SAM 3 ("sam3.pt"). When missing or GPU VRAM < min_vram_gb_for_sam3,
+  # automatically falls back to lightweight SAM 2.1 for local execution.
+  sam3_weights: "weights/sam3.pt"
+  fallback_weights: "weights/sam2.1_t.pt"
+  fallback_auto_name: "sam2.1_t.pt"
+  prefer_sam3: true
+  min_vram_gb_for_sam3: 7.5
+  min_ram_gb_for_sam3: 11.0
+  sam_conf: 0.25
+  sam_imgsz: 1024
+  sam3_imgsz: 1008
+  multimask_output: false
+  polygon_epsilon_ratio: 0.002
+  min_mask_area_px: 24
+
+active_learning:
+  # Core user thresholds
+  auto_label_conf_thresh: 0.85
+  uncertain_conf_thresh: 0.60
+  pair_confusion_margin: 0.20
+  pair_confusion_iou: 0.65
+  min_mask_bbox_iou: 0.40
+  # Rider/two-wheeler spatial rule thresholds
+  rider_overlap_thresh: 0.25
+  rider_borderline_low: 0.08
+  rider_borderline_high: 0.30
+  # Truck + trailer check (large aspect/area legacy class 3 boxes flagged for cabin vs trailer split)
+  large_truck_area_thresh: 0.14
+  # Legacy label mismatch detection
+  legacy_match_iou: 0.30
+  # Max hard images per CVAT batch export
+  cvat_batch_size: 200
+  # Warm-up sampling target
+  warmup_sample_size: 200
+
+dataset_split:
+  val_ratio: 0.15
+  seed: 42
+  camera_grouped: true
