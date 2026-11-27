@@ -1,0 +1,130 @@
+# Pipeline V2 — tối ưu cho đủ 11 lớp (giữ nguyên configs/pipeline.yaml cho V1)
+# Khác V1:
+#   - Detector bootstrap lớn: yolo11x-seg (COCO) + yoloe-26l-seg-pf (prompt-free) + yoloe-26l-seg (text prompt)
+#   - Chạy cả ảnh ở 1280 + chia ô 2x2 phóng to (bắt vật nhỏ ở xa: biển báo, đèn, xe đạp)
+#   - Ngưỡng conf riêng từng lớp (lớp hiếm để thấp hơn)
+#   - Text prompt cho lớp 3/6/7/9/10 (map ở mục text_prompts bên dưới)
+#   - Hậu xử lý: người dắt xe -> Pedestrian, lọc biển/đèn nằm trong xe, tách đầu kéo/rơ-moóc, cắt cột biển báo
+#   - SAM 2.1 base thay vì tiny; train/predict YOLO ở 1024
+# Output tách riêng sang pipeline_work_v2/ để không đụng kết quả V1.
+
+paths:
+  images_dir: "images"
+  legacy_labels_dir: "labels"
+  work_dir: "pipeline_work_v2"
+  weights_dir: "weights"
+  ultralytics_config_dir: "pipeline_work_v2/.ultralytics"
+
+detector:
+  # Model được train trong vòng Active Learning (model nộp bài nên nhỏ, nhưng train ở ảnh lớn)
+  base_model: "yolo11n-seg.pt"
+  # Bootstrap (chỉ dùng để gán nhãn nháp, không phải model nộp) -> dùng bản lớn nhất có sẵn
+  bootstrap_coco_model: "yolo11x-seg.pt"
+  bootstrap_yoloe_model: "yoloe-26l-seg-pf.pt"
+  bootstrap_text_model: "yoloe-26l-seg.pt"
+  imgsz: 1024          # train + predict của YOLO11 trong vòng AL
+  batch: 4
+  epochs_warmup: 30
+  epochs_retrain: 25
+  workers: 0
+  amp: true
+  device: "auto"
+  predict_conf: 0.25
+  raw_probe_conf: 0.15
+  nms_iou: 0.55
+
+bootstrap_v2:
+  full_imgsz: 1280      # suy luận cả ảnh
+  tile_grid: [2, 2]     # số cột, số hàng
+  tile_overlap: 0.20
+  tile_imgsz: 960       # mỗi ô ~770x430 px được phóng lên 960 -> vật nhỏ to gấp ~2 lần
+  merge_iou: 0.55       # NMS gộp kết quả cả ảnh + các ô + các model
+  merge_containment: 0.80  # bỏ hộp cùng lớp nằm gần trọn trong hộp khác (vật bị cắt ở mép ô)
+  # Ngưỡng conf theo lớp (id đích 0..10; 104=xe máy, 106=xe đạp, 108=người trước khi ghép người+xe)
+  class_conf:
+    0: 0.30
+    1: 0.30
+    2: 0.30
+    3: 0.40
+    5: 0.25
+    7: 0.30
+    9: 0.25
+    10: 0.25
+    104: 0.25
+    106: 0.30
+    108: 0.25
+  default_conf: 0.30
+  # Lọc nhầm lẫn của model open-vocab (thêm sau lần chạy thử 10 ảnh đầu)
+  other_vs_moto_area_ratio: 1.8   # hộp lớp 3 phủ xe máy/người mà không to hơn 1.8 lần -> là xe máy, bỏ
+  other_min_bottom_frac: 0.20     # hộp lớp 3 có đáy nằm trong 20% trên cùng ảnh -> bảng quảng cáo, bỏ
+  bike_vs_moto_iou: 0.30          # xe đạp trùng xe máy -> bỏ xe đạp
+  pf_conf: 0.25
+  # Text prompt cho YOLOE-26l (mỗi prompt -> 1 id). Không dùng câu phủ định ("without rider"):
+  # model text không hiểu phủ định, việc tách 6/7 và 4/5 do luật ghép người + xe quyết định.
+  text_prompts:
+    "bicycle": 106
+    "cyclist": 7
+    "person riding a bicycle": 7
+    "tricycle": 3
+    "cargo tricycle": 3
+    "cycle rickshaw": 3
+    "auto rickshaw": 3
+    "trailer": 3
+    "semi-trailer": 3
+    "container trailer": 3
+    "excavator": 3
+    "tractor": 3
+    "road roller": 3
+    "traffic sign": 9
+    "road sign": 9
+    "warning sign": 9
+    "traffic light": 10
+    "pedestrian traffic signal": 10
+  # Lọc biển báo / đèn
+  signal_max_area_frac: 0.02      # hộp lớn hơn 2% ảnh -> nhiều khả năng là bảng quảng cáo
+  signal_min_side_px: 6
+  signal_in_vehicle_contain: 0.60 # biển/đèn nằm >=60% trong hộp xe -> đèn hậu, chữ trên thân xe -> bỏ
+  # Người dắt xe: chân chạm đất ngang đáy xe và lệch sang bên -> Pedestrian + xe không người
+  walker_feet_tol: 0.10           # |đáy người - đáy xe| <= 10% chiều cao xe
+  walker_lateral_offset: 0.30     # |tâm người - tâm xe| >= 30% chiều rộng xe
+  # Đầu kéo + rơ-moóc
+  trailer_overlap_contain: 0.50
+  truck_min_keep_frac: 0.20
+
+segmenter:
+  sam3_weights: "weights/sam3.pt"
+  fallback_weights: "weights/sam2.1_b.pt"
+  fallback_auto_name: "sam2.1_b.pt"
+  prefer_sam3: true
+  min_vram_gb_for_sam3: 7.5
+  min_ram_gb_for_sam3: 11.0
+  sam_conf: 0.25
+  sam_imgsz: 1024
+  sam3_imgsz: 1008
+  multimask_output: false
+  polygon_epsilon_ratio: 0.0012   # polygon sát biên hơn (điểm chấm theo mask mAP@.5:.95)
+  min_mask_area_px: 16
+  # Hậu xử lý mask V2
+  clip_to_box_classes: [9, 10]    # biển/đèn: cắt mask trong hộp phát hiện (+ lề nhỏ)
+  clip_box_margin_frac: 0.04
+  pole_trim_classes: [9]          # cắt cột biển: bỏ hàng/cột của mask hẹp hơn 35% bề rộng mặt biển
+  pole_trim_ratio: 0.35
+
+active_learning:
+  auto_label_conf_thresh: 0.85
+  uncertain_conf_thresh: 0.60
+  pair_confusion_margin: 0.20
+  pair_confusion_iou: 0.65
+  min_mask_bbox_iou: 0.40
+  rider_overlap_thresh: 0.25
+  rider_borderline_low: 0.08
+  rider_borderline_high: 0.30
+  large_truck_area_thresh: 0.14
+  legacy_match_iou: 0.30
+  cvat_batch_size: 200
+  warmup_sample_size: 200
+
+dataset_split:
+  val_ratio: 0.15
+  seed: 42
+  camera_grouped: true
