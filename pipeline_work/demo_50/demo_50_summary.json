@@ -1,0 +1,81 @@
+{
+  "num_images_tested": 50,
+  "bootstrap_detector": "YOLO11-COCO+YOLOE-PF(yolo11n-seg.pt+yoloe-11s-seg-pf.pt)",
+  "segmenter_backend": "SAM2.1-fallback",
+  "bootstrap_phase": {
+    "auto_easy_count": 0,
+    "hard_cvat_count": 50,
+    "total_instances": 847,
+    "class_distribution": {
+      "Bus": 28,
+      "Car": 147,
+      "Motorcycle": 49,
+      "Motorcyclist": 532,
+      "Other vehicle": 2,
+      "Pedestrian": 23,
+      "Sign": 14,
+      "Traffic light": 1,
+      "Truck": 51
+    },
+    "uncertainty_reasons": {
+      "legacy_prior_only": 103,
+      "low_conf": 50,
+      "mid_conf": 46,
+      "legacy_upgraded_rider": 25,
+      "legacy_class_conflict": 20,
+      "pair_confusion": 14,
+      "truck_trailer_split_check": 2,
+      "rider_ambiguity": 2,
+      "mask_quality_low": 1
+    },
+    "cvat_warmup_zip": "C:\\Users\\GIA KHANG\\Downloads\\hackathon\\pipeline_work\\cvat_export\\demo_50_warmup_cvat\\demo_50_warmup_cvat_coco.zip",
+    "cvat_warmup_yolo_zip": "C:\\Users\\GIA KHANG\\Downloads\\hackathon\\pipeline_work\\cvat_export\\demo_50_warmup_cvat\\demo_50_warmup_cvat_yolo_seg.zip"
+  },
+  "yolo11_smoke_train": {
+    "train_images": 47,
+    "val_images": 3,
+    "epochs": 5,
+    "best_weights": "C:\\Users\\GIA KHANG\\Downloads\\hackathon\\pipeline_work\\runs\\demo_50_yolo11_seg\\weights\\best.pt",
+    "metrics": {
+      "metrics/precision(B)": 0.3525,
+      "metrics/recall(B)": 0.6385,
+      "metrics/mAP50(B)": 0.514,
+      "metrics/mAP50-95(B)": 0.3832,
+      "metrics/precision(M)": 0.3018,
+      "metrics/recall(M)": 0.5464,
+      "metrics/mAP50(M)": 0.4264,
+      "metrics/mAP50-95(M)": 0.2877,
+      "fitness": 0.6709
+    }
+  },
+  "active_learning_phase": {
+    "auto_easy_count": 0,
+    "hard_cvat_count": 50,
+    "total_instances": 816,
+    "class_distribution": {
+      "Bus": 62,
+      "Car": 179,
+      "Motorcycle": 19,
+      "Motorcyclist": 532,
+      "Sign": 2,
+      "Traffic light": 1,
+      "Truck": 21
+    },
+    "uncertainty_reasons": {
+      "pair_confusion": 72,
+      "low_conf": 50,
+      "mid_conf": 50,
+      "legacy_unmatched": 47,
+      "truck_trailer_split_check": 2
+    },
+    "cvat_al_coco_zip": "C:\\Users\\GIA KHANG\\Downloads\\hackathon\\pipeline_work\\cvat_export\\demo_50_al_review_cvat\\demo_50_al_review_cvat_coco.zip",
+    "cvat_al_yolo_zip": "C:\\Users\\GIA KHANG\\Downloads\\hackathon\\pipeline_work\\cvat_export\\demo_50_al_review_cvat\\demo_50_al_review_cvat_yolo_seg.zip"
+  },
+  "artifacts": {
+    "demo_dir": "C:\\Users\\GIA KHANG\\Downloads\\hackathon\\pipeline_work\\demo_50",
+    "bootstrap_visuals": "C:\\Users\\GIA KHANG\\Downloads\\hackathon\\pipeline_work\\demo_50\\visuals_bootstrap",
+    "al_visuals": "C:\\Users\\GIA KHANG\\Downloads\\hackathon\\pipeline_work\\demo_50\\visuals_yolo11_al",
+    "bootstrap_report": "C:\\Users\\GIA KHANG\\Downloads\\hackathon\\pipeline_work\\demo_50\\reports\\bootstrap_50_summary.json",
+    "al_report": "C:\\Users\\GIA KHANG\\Downloads\\hackathon\\pipeline_work\\demo_50\\reports\\yolo11_al_50_summary.json"
+  }
+}

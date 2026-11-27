@@ -1,0 +1,51 @@
+rank,stem,image,bucket,al_score,min_conf,mean_conf,num_objects,reasons
+1,night_cam_15_00108,night_cam_15_00108.jpg,human,4.0683,0.2712,0.609,15,"low_conf(<0.60):7; mid_conf(0.60-0.85):7; legacy_class_conflict(old=2,new=0); legacy_prior_only(old=0); legacy_prior_only(old=2); legacy_prior_only(old=3); legacy_upgraded_rider; pair_confusion:Bus_vs_Car(margin=0.02); pair_confusion:Car_vs_Truck(margin=0.04)"
+2,day_cam_10_00718,day_cam_10_00718.jpg,human,3.9968,0.2521,0.5307,40,"low_conf(<0.60):32; mid_conf(0.60-0.85):8; legacy_class_conflict(old=1,new=1); legacy_prior_only(old=0); legacy_prior_only(old=1); legacy_prior_only(old=3); legacy_upgraded_rider; pair_confusion:Bus_vs_Truck(margin=0.17)"
+3,day_cam_01_00908,day_cam_01_00908.jpg,human,3.9663,0.2724,0.5679,17,"low_conf(<0.60):10; mid_conf(0.60-0.85):7; legacy_class_conflict(old=3,new=1); legacy_prior_only(old=0); legacy_prior_only(old=1); legacy_prior_only(old=3); pair_confusion:Car_vs_Bus(margin=0.08); pair_confusion:Car_vs_Truck(margin=0.07); pair_confusion:Truck_vs_Bus(margin=0.14)"
+4,night_cam_03_00198,night_cam_03_00198.jpg,human,3.7619,0.2754,0.6004,14,low_conf(<0.60):6; mid_conf(0.60-0.85):7; legacy_prior_only(old=0); legacy_prior_only(old=1); legacy_prior_only(old=3); legacy_upgraded_rider; pair_confusion:Bus_vs_Truck(margin=0.06)
+5,day_cam_01_00417,day_cam_01_00417.jpg,human,3.6438,0.3008,0.5236,13,"low_conf(<0.60):9; mid_conf(0.60-0.85):4; legacy_class_conflict(old=0,new=0); legacy_prior_only(old=0); legacy_prior_only(old=3); legacy_upgraded_rider; pair_confusion:Truck_vs_Bus(margin=0.12)"
+6,day_cam_06_00831,day_cam_06_00831.jpg,human,3.5266,0.2656,0.5234,12,low_conf(<0.60):7; mid_conf(0.60-0.85):5; legacy_prior_only(old=0); legacy_prior_only(old=1); legacy_prior_only(old=3); legacy_upgraded_rider; truck_trailer_split_check
+7,day_cam_02_00241,day_cam_02_00241.jpg,human,3.5158,0.2728,0.5387,19,"low_conf(<0.60):11; mid_conf(0.60-0.85):8; legacy_class_conflict(old=1,new=2); legacy_prior_only(old=0); legacy_prior_only(old=1); legacy_prior_only(old=2); legacy_prior_only(old=3)"
+8,day_cam_02_00142,day_cam_02_00142.jpg,human,3.5152,0.2732,0.6072,21,low_conf(<0.60):9; mid_conf(0.60-0.85):12; legacy_prior_only(old=0); legacy_prior_only(old=1); legacy_prior_only(old=2); legacy_prior_only(old=3); legacy_upgraded_rider
+9,night_cam_15_01053,night_cam_15_01053.jpg,human,3.4671,0.3053,0.5643,19,low_conf(<0.60):13; mid_conf(0.60-0.85):6; legacy_prior_only(old=0); legacy_prior_only(old=1); legacy_prior_only(old=2); legacy_prior_only(old=3); legacy_upgraded_rider
+10,day_cam_12_00392,day_cam_12_00392.jpg,human,3.3549,0.2534,0.469,18,"low_conf(<0.60):16; mid_conf(0.60-0.85):2; legacy_class_conflict(old=1,new=2); legacy_prior_only(old=0); legacy_upgraded_rider; pair_confusion:Truck_vs_Car(margin=0.18)"
+11,day_cam_01_00770,day_cam_01_00770.jpg,human,3.3289,0.264,0.5829,14,"low_conf(<0.60):8; mid_conf(0.60-0.85):6; legacy_class_conflict(old=3,new=1); legacy_prior_only(old=0); legacy_prior_only(old=3); legacy_upgraded_rider"
+12,day_cam_06_00373,day_cam_06_00373.jpg,human,3.3229,0.2681,0.5341,14,low_conf(<0.60):9; mid_conf(0.60-0.85):5; legacy_prior_only(old=0); legacy_prior_only(old=1); legacy_prior_only(old=3); legacy_upgraded_rider
+13,day_cam_10_00682,day_cam_10_00682.jpg,human,3.2534,0.2944,0.5404,37,low_conf(<0.60):33; mid_conf(0.60-0.85):4; legacy_prior_only(old=0); legacy_prior_only(old=1); pair_confusion:Car_vs_Truck(margin=0.09)
+14,day_cam_12_00650,day_cam_12_00650.jpg,human,3.1558,0.2528,0.4238,17,low_conf(<0.60):15; mid_conf(0.60-0.85):2; legacy_prior_only(old=0); legacy_upgraded_rider; pair_confusion:Car_vs_Bus(margin=0.14)
+15,day_cam_07_00621,day_cam_07_00621.jpg,human,3.148,0.258,0.4727,22,low_conf(<0.60):20; mid_conf(0.60-0.85):2; legacy_prior_only(old=0); legacy_upgraded_rider; pair_confusion:Truck_vs_Bus(margin=0.17)
+16,day_cam_24_00596,day_cam_24_00596.jpg,human,3.1471,0.2786,0.5036,22,"low_conf(<0.60):19; mid_conf(0.60-0.85):3; legacy_class_conflict(old=3,new=1); legacy_prior_only(old=0); legacy_upgraded_rider; rider_ambiguity"
+17,day_cam_09_00434,day_cam_09_00434.jpg,human,3.1434,0.2544,0.5018,44,low_conf(<0.60):39; mid_conf(0.60-0.85):5; legacy_prior_only(old=0); legacy_prior_only(old=1); legacy_upgraded_rider
+18,day_cam_07_00139,day_cam_07_00139.jpg,human,3.094,0.2606,0.5104,13,"low_conf(<0.60):11; mid_conf(0.60-0.85):2; legacy_class_conflict(old=0,new=8); legacy_prior_only(old=0); legacy_prior_only(old=3); legacy_upgraded_rider"
+19,night_cam_08_00164,night_cam_08_00164.jpg,human,3.03,0.55,0.5774,31,low_conf(<0.60):26; mid_conf(0.60-0.85):5; mask_quality_low:1; legacy_prior_only(old=0); legacy_prior_only(old=1); legacy_prior_only(old=2)
+20,day_cam_02_00260,day_cam_02_00260.jpg,human,3.0213,0.2825,0.5574,12,"low_conf(<0.60):8; mid_conf(0.60-0.85):4; legacy_class_conflict(old=0,new=0); legacy_prior_only(old=0); legacy_prior_only(old=1)"
+21,night_cam_17_00318,night_cam_17_00318.jpg,human,3.0117,0.2888,0.576,17,"low_conf(<0.60):12; mid_conf(0.60-0.85):4; legacy_class_conflict(old=0,new=0); legacy_prior_only(old=0); legacy_prior_only(old=1)"
+22,night_cam_03_00340,night_cam_03_00340.jpg,human,3.0105,0.343,0.6316,14,"low_conf(<0.60):5; mid_conf(0.60-0.85):9; legacy_class_conflict(old=2,new=2); legacy_prior_only(old=0); legacy_prior_only(old=1)"
+23,day_cam_14_00296,day_cam_14_00296.jpg,human,2.972,0.262,0.5036,13,"low_conf(<0.60):10; mid_conf(0.60-0.85):3; legacy_class_conflict(old=0,new=8); legacy_prior_only(old=0); legacy_upgraded_rider"
+24,day_cam_16_00586,day_cam_16_00586.jpg,human,2.9166,0.2722,0.5142,28,low_conf(<0.60):21; mid_conf(0.60-0.85):6; legacy_prior_only(old=0); rider_ambiguity
+25,day_cam_09_00701,day_cam_09_00701.jpg,human,2.8957,0.2862,0.528,48,low_conf(<0.60):42; mid_conf(0.60-0.85):5; legacy_prior_only(old=0); legacy_upgraded_rider
+26,day_cam_04_00802,day_cam_04_00802.jpg,human,2.8951,0.2599,0.5388,13,low_conf(<0.60):11; mid_conf(0.60-0.85):2; legacy_prior_only(old=0); legacy_prior_only(old=1); legacy_upgraded_rider
+27,day_cam_16_00125,day_cam_16_00125.jpg,human,2.8677,0.2515,0.4851,23,"low_conf(<0.60):19; mid_conf(0.60-0.85):4; legacy_class_conflict(old=0,new=0); legacy_prior_only(old=0)"
+28,day_cam_23_00025,day_cam_23_00025.jpg,human,2.864,0.254,0.5499,11,low_conf(<0.60):7; mid_conf(0.60-0.85):4; legacy_prior_only(old=0); legacy_upgraded_rider
+29,day_cam_11_00416,day_cam_11_00416.jpg,human,2.8404,0.2964,0.5053,16,low_conf(<0.60):14; mid_conf(0.60-0.85):2; legacy_prior_only(old=0); legacy_prior_only(old=1); legacy_upgraded_rider
+30,day_cam_24_00739,day_cam_24_00739.jpg,human,2.838,0.262,0.4768,23,"low_conf(<0.60):23; legacy_class_conflict(old=0,new=8); legacy_class_conflict(old=2,new=2); legacy_prior_only(old=0); legacy_upgraded_rider; pair_confusion:Truck_vs_Car(margin=0.17)"
+31,night_cam_17_00264,night_cam_17_00264.jpg,human,2.831,0.3293,0.5872,19,low_conf(<0.60):14; mid_conf(0.60-0.85):5; legacy_prior_only(old=0); legacy_prior_only(old=1)
+32,day_cam_23_00059,day_cam_23_00059.jpg,human,2.8201,0.2566,0.4201,11,low_conf(<0.60):10; mid_conf(0.60-0.85):1; legacy_prior_only(old=0); legacy_prior_only(old=1); legacy_upgraded_rider
+33,day_cam_14_00340,day_cam_14_00340.jpg,human,2.7547,0.2735,0.4714,15,low_conf(<0.60):12; mid_conf(0.60-0.85):3; legacy_prior_only(old=0); legacy_upgraded_rider
+34,night_cam_22_00071,night_cam_22_00071.jpg,human,2.6465,0.3723,0.5311,9,"low_conf(<0.60):8; mid_conf(0.60-0.85):1; legacy_class_conflict(old=2,new=0); legacy_prior_only(old=0); legacy_prior_only(old=1)"
+35,day_cam_18_00561,day_cam_18_00561.jpg,human,2.6397,0.2603,0.4646,11,"low_conf(<0.60):11; legacy_class_conflict(old=1,new=2); legacy_prior_only(old=0); legacy_upgraded_rider; pair_confusion:Truck_vs_Car(margin=0.08)"
+36,day_cam_11_00313,day_cam_11_00313.jpg,human,2.629,0.2507,0.5147,15,low_conf(<0.60):14; mid_conf(0.60-0.85):1; legacy_prior_only(old=0); legacy_prior_only(old=1)
+37,day_cam_18_00025,day_cam_18_00025.jpg,human,2.5651,0.2933,0.4967,12,low_conf(<0.60):11; mid_conf(0.60-0.85):1; legacy_prior_only(old=0); legacy_prior_only(old=1)
+38,night_cam_13_00043,night_cam_13_00043.jpg,human,2.54,0.55,0.6057,7,low_conf(<0.60):4; mid_conf(0.60-0.85):3; legacy_prior_only(old=0); legacy_prior_only(old=1); legacy_prior_only(old=3)
+39,day_cam_04_00341,day_cam_04_00341.jpg,human,2.46,0.55,0.5775,8,low_conf(<0.60):6; mid_conf(0.60-0.85):2; legacy_prior_only(old=0); legacy_prior_only(old=2); legacy_prior_only(old=3)
+40,night_cam_05_00597,night_cam_05_00597.jpg,human,2.46,0.55,0.5814,7,low_conf(<0.60):5; mid_conf(0.60-0.85):2; legacy_prior_only(old=0); legacy_prior_only(old=1); legacy_prior_only(old=3)
+41,night_cam_05_00658,night_cam_05_00658.jpg,human,2.46,0.55,0.5814,7,low_conf(<0.60):5; mid_conf(0.60-0.85):2; legacy_prior_only(old=0); legacy_prior_only(old=1); legacy_prior_only(old=3)
+42,night_cam_08_00855,night_cam_08_00855.jpg,human,2.46,0.55,0.5679,19,low_conf(<0.60):17; mid_conf(0.60-0.85):2; legacy_prior_only(old=0); legacy_prior_only(old=1); legacy_prior_only(old=2)
+43,night_cam_25_01252,night_cam_25_01252.jpg,human,2.4467,0.3722,0.5349,9,low_conf(<0.60):8; mid_conf(0.60-0.85):1; legacy_prior_only(old=0); legacy_prior_only(old=1)
+44,night_cam_19_00086,night_cam_19_00086.jpg,human,2.4424,0.4284,0.5738,13,low_conf(<0.60):11; mid_conf(0.60-0.85):2; legacy_prior_only(old=0); truck_trailer_split_check
+45,night_cam_19_00165,night_cam_19_00165.jpg,human,2.26,0.55,0.5878,9,low_conf(<0.60):7; mid_conf(0.60-0.85):2; legacy_prior_only(old=0); legacy_prior_only(old=1)
+46,night_cam_20_00494,night_cam_20_00494.jpg,human,2.18,0.55,0.5621,14,low_conf(<0.60):13; mid_conf(0.60-0.85):1; legacy_prior_only(old=0); legacy_prior_only(old=1)
+47,night_cam_20_00910,night_cam_20_00910.jpg,human,2.18,0.55,0.5594,18,low_conf(<0.60):17; mid_conf(0.60-0.85):1; legacy_prior_only(old=0); legacy_prior_only(old=1)
+48,night_cam_22_00091,night_cam_22_00091.jpg,human,2.18,0.55,0.5743,7,low_conf(<0.60):6; mid_conf(0.60-0.85):1; legacy_prior_only(old=0); legacy_prior_only(old=1)
+49,night_cam_13_00812,night_cam_13_00812.jpg,human,2.0636,0.3864,0.5252,7,"low_conf(<0.60):7; legacy_class_conflict(old=3,new=0); legacy_class_conflict(old=3,new=1); legacy_prior_only(old=0)"
+50,day_cam_04_00401,day_cam_04_00401.jpg,human,1.9558,0.2942,0.4803,10,low_conf(<0.60):10; legacy_prior_only(old=0); legacy_upgraded_rider

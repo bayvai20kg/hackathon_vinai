@@ -1,0 +1,843 @@
+{
+  "total_images": 50,
+  "auto_labeled_easy": 0,
+  "human_review_hard": 50,
+  "total_instances": 847,
+  "class_distribution": {
+    "Bus": 28,
+    "Car": 147,
+    "Motorcycle": 49,
+    "Motorcyclist": 532,
+    "Other vehicle": 2,
+    "Pedestrian": 23,
+    "Sign": 14,
+    "Traffic light": 1,
+    "Truck": 51
+  },
+  "uncertainty_reason_counts": {
+    "legacy_prior_only": 103,
+    "low_conf": 50,
+    "mid_conf": 46,
+    "legacy_upgraded_rider": 25,
+    "legacy_class_conflict": 20,
+    "pair_confusion": 14,
+    "truck_trailer_split_check": 2,
+    "rider_ambiguity": 2,
+    "mask_quality_low": 1
+  },
+  "images": [
+    {
+      "stem": "night_cam_15_00108",
+      "image": "night_cam_15_00108.jpg",
+      "bucket": "human",
+      "al_score": 4.0683,
+      "min_conf": 0.2712,
+      "mean_conf": 0.609,
+      "num_objects": 15,
+      "reasons": [
+        "low_conf(<0.60):7",
+        "mid_conf(0.60-0.85):7",
+        "legacy_class_conflict(old=2,new=0)",
+        "legacy_prior_only(old=0)",
+        "legacy_prior_only(old=2)",
+        "legacy_prior_only(old=3)",
+        "legacy_upgraded_rider",
+        "pair_confusion:Bus_vs_Car(margin=0.02)",
+        "pair_confusion:Car_vs_Truck(margin=0.04)"
+      ]
+    },
+    {
+      "stem": "day_cam_10_00718",
+      "image": "day_cam_10_00718.jpg",
+      "bucket": "human",
+      "al_score": 3.9968,
+      "min_conf": 0.2521,
+      "mean_conf": 0.5307,
+      "num_objects": 40,
+      "reasons": [
+        "low_conf(<0.60):32",
+        "mid_conf(0.60-0.85):8",
+        "legacy_class_conflict(old=1,new=1)",
+        "legacy_prior_only(old=0)",
+        "legacy_prior_only(old=1)",
+        "legacy_prior_only(old=3)",
+        "legacy_upgraded_rider",
+        "pair_confusion:Bus_vs_Truck(margin=0.17)"
+      ]
+    },
+    {
+      "stem": "day_cam_01_00908",
+      "image": "day_cam_01_00908.jpg",
+      "bucket": "human",
+      "al_score": 3.9663,
+      "min_conf": 0.2724,
+      "mean_conf": 0.5679,
+      "num_objects": 17,
+      "reasons": [
+        "low_conf(<0.60):10",
+        "mid_conf(0.60-0.85):7",
+        "legacy_class_conflict(old=3,new=1)",
+        "legacy_prior_only(old=0)",
+        "legacy_prior_only(old=1)",
+        "legacy_prior_only(old=3)",
+        "pair_confusion:Car_vs_Bus(margin=0.08)",
+        "pair_confusion:Car_vs_Truck(margin=0.07)",
+        "pair_confusion:Truck_vs_Bus(margin=0.14)"
+      ]
+    },
+    {
+      "stem": "night_cam_03_00198",
+      "image": "night_cam_03_00198.jpg",
+      "bucket": "human",
+      "al_score": 3.7619,
+      "min_conf": 0.2754,
+      "mean_conf": 0.6004,
+      "num_objects": 14,
+      "reasons": [
+        "low_conf(<0.60):6",
+        "mid_conf(0.60-0.85):7",
+        "legacy_prior_only(old=0)",
+        "legacy_prior_only(old=1)",
+        "legacy_prior_only(old=3)",
+        "legacy_upgraded_rider",
+        "pair_confusion:Bus_vs_Truck(margin=0.06)"
+      ]
+    },
+    {
+      "stem": "day_cam_01_00417",
+      "image": "day_cam_01_00417.jpg",
+      "bucket": "human",
+      "al_score": 3.6438,
+      "min_conf": 0.3008,
+      "mean_conf": 0.5236,
+      "num_objects": 13,
+      "reasons": [
+        "low_conf(<0.60):9",
+        "mid_conf(0.60-0.85):4",
+        "legacy_class_conflict(old=0,new=0)",
+        "legacy_prior_only(old=0)",
+        "legacy_prior_only(old=3)",
+        "legacy_upgraded_rider",
+        "pair_confusion:Truck_vs_Bus(margin=0.12)"
+      ]
+    },
+    {
+      "stem": "day_cam_06_00831",
+      "image": "day_cam_06_00831.jpg",
+      "bucket": "human",
+      "al_score": 3.5266,
+      "min_conf": 0.2656,
+      "mean_conf": 0.5234,
+      "num_objects": 12,
+      "reasons": [
+        "low_conf(<0.60):7",
+        "mid_conf(0.60-0.85):5",
+        "legacy_prior_only(old=0)",
+        "legacy_prior_only(old=1)",
+        "legacy_prior_only(old=3)",
+        "legacy_upgraded_rider",
+        "truck_trailer_split_check"
+      ]
+    },
+    {
+      "stem": "day_cam_02_00241",
+      "image": "day_cam_02_00241.jpg",
+      "bucket": "human",
+      "al_score": 3.5158,
+      "min_conf": 0.2728,
+      "mean_conf": 0.5387,
+      "num_objects": 19,
+      "reasons": [
+        "low_conf(<0.60):11",
+        "mid_conf(0.60-0.85):8",
+        "legacy_class_conflict(old=1,new=2)",
+        "legacy_prior_only(old=0)",
+        "legacy_prior_only(old=1)",
+        "legacy_prior_only(old=2)",
+        "legacy_prior_only(old=3)"
+      ]
+    },
+    {
+      "stem": "day_cam_02_00142",
+      "image": "day_cam_02_00142.jpg",
+      "bucket": "human",
+      "al_score": 3.5152,
+      "min_conf": 0.2732,
+      "mean_conf": 0.6072,
+      "num_objects": 21,
+      "reasons": [
+        "low_conf(<0.60):9",
+        "mid_conf(0.60-0.85):12",
+        "legacy_prior_only(old=0)",
+        "legacy_prior_only(old=1)",
+        "legacy_prior_only(old=2)",
+        "legacy_prior_only(old=3)",
+        "legacy_upgraded_rider"
+      ]
+    },
+    {
+      "stem": "night_cam_15_01053",
+      "image": "night_cam_15_01053.jpg",
+      "bucket": "human",
+      "al_score": 3.4671,
+      "min_conf": 0.3053,
+      "mean_conf": 0.5643,
+      "num_objects": 19,
+      "reasons": [
+        "low_conf(<0.60):13",
+        "mid_conf(0.60-0.85):6",
+        "legacy_prior_only(old=0)",
+        "legacy_prior_only(old=1)",
+        "legacy_prior_only(old=2)",
+        "legacy_prior_only(old=3)",
+        "legacy_upgraded_rider"
+      ]
+    },
+    {
+      "stem": "day_cam_12_00392",
+      "image": "day_cam_12_00392.jpg",
+      "bucket": "human",
+      "al_score": 3.3549,
+      "min_conf": 0.2534,
+      "mean_conf": 0.469,
+      "num_objects": 18,
+      "reasons": [
+        "low_conf(<0.60):16",
+        "mid_conf(0.60-0.85):2",
+        "legacy_class_conflict(old=1,new=2)",
+        "legacy_prior_only(old=0)",
+        "legacy_upgraded_rider",
+        "pair_confusion:Truck_vs_Car(margin=0.18)"
+      ]
+    },
+    {
+      "stem": "day_cam_01_00770",
+      "image": "day_cam_01_00770.jpg",
+      "bucket": "human",
+      "al_score": 3.3289,
+      "min_conf": 0.264,
+      "mean_conf": 0.5829,
+      "num_objects": 14,
+      "reasons": [
+        "low_conf(<0.60):8",
+        "mid_conf(0.60-0.85):6",
+        "legacy_class_conflict(old=3,new=1)",
+        "legacy_prior_only(old=0)",
+        "legacy_prior_only(old=3)",
+        "legacy_upgraded_rider"
+      ]
+    },
+    {
+      "stem": "day_cam_06_00373",
+      "image": "day_cam_06_00373.jpg",
+      "bucket": "human",
+      "al_score": 3.3229,
+      "min_conf": 0.2681,
+      "mean_conf": 0.5341,
+      "num_objects": 14,
+      "reasons": [
+        "low_conf(<0.60):9",
+        "mid_conf(0.60-0.85):5",
+        "legacy_prior_only(old=0)",
+        "legacy_prior_only(old=1)",
+        "legacy_prior_only(old=3)",
+        "legacy_upgraded_rider"
+      ]
+    },
+    {
+      "stem": "day_cam_10_00682",
+      "image": "day_cam_10_00682.jpg",
+      "bucket": "human",
+      "al_score": 3.2534,
+      "min_conf": 0.2944,
+      "mean_conf": 0.5404,
+      "num_objects": 37,
+      "reasons": [
+        "low_conf(<0.60):33",
+        "mid_conf(0.60-0.85):4",
+        "legacy_prior_only(old=0)",
+        "legacy_prior_only(old=1)",
+        "pair_confusion:Car_vs_Truck(margin=0.09)"
+      ]
+    },
+    {
+      "stem": "day_cam_12_00650",
+      "image": "day_cam_12_00650.jpg",
+      "bucket": "human",
+      "al_score": 3.1558,
+      "min_conf": 0.2528,
+      "mean_conf": 0.4238,
+      "num_objects": 17,
+      "reasons": [
+        "low_conf(<0.60):15",
+        "mid_conf(0.60-0.85):2",
+        "legacy_prior_only(old=0)",
+        "legacy_upgraded_rider",
+        "pair_confusion:Car_vs_Bus(margin=0.14)"
+      ]
+    },
+    {
+      "stem": "day_cam_07_00621",
+      "image": "day_cam_07_00621.jpg",
+      "bucket": "human",
+      "al_score": 3.148,
+      "min_conf": 0.258,
+      "mean_conf": 0.4727,
+      "num_objects": 22,
+      "reasons": [
+        "low_conf(<0.60):20",
+        "mid_conf(0.60-0.85):2",
+        "legacy_prior_only(old=0)",
+        "legacy_upgraded_rider",
+        "pair_confusion:Truck_vs_Bus(margin=0.17)"
+      ]
+    },
+    {
+      "stem": "day_cam_24_00596",
+      "image": "day_cam_24_00596.jpg",
+      "bucket": "human",
+      "al_score": 3.1471,
+      "min_conf": 0.2786,
+      "mean_conf": 0.5036,
+      "num_objects": 22,
+      "reasons": [
+        "low_conf(<0.60):19",
+        "mid_conf(0.60-0.85):3",
+        "legacy_class_conflict(old=3,new=1)",
+        "legacy_prior_only(old=0)",
+        "legacy_upgraded_rider",
+        "rider_ambiguity"
+      ]
+    },
+    {
+      "stem": "day_cam_09_00434",
+      "image": "day_cam_09_00434.jpg",
+      "bucket": "human",
+      "al_score": 3.1434,
+      "min_conf": 0.2544,
+      "mean_conf": 0.5018,
+      "num_objects": 44,
+      "reasons": [
+        "low_conf(<0.60):39",
+        "mid_conf(0.60-0.85):5",
+        "legacy_prior_only(old=0)",
+        "legacy_prior_only(old=1)",
+        "legacy_upgraded_rider"
+      ]
+    },
+    {
+      "stem": "day_cam_07_00139",
+      "image": "day_cam_07_00139.jpg",
+      "bucket": "human",
+      "al_score": 3.094,
+      "min_conf": 0.2606,
+      "mean_conf": 0.5104,
+      "num_objects": 13,
+      "reasons": [
+        "low_conf(<0.60):11",
+        "mid_conf(0.60-0.85):2",
+        "legacy_class_conflict(old=0,new=8)",
+        "legacy_prior_only(old=0)",
+        "legacy_prior_only(old=3)",
+        "legacy_upgraded_rider"
+      ]
+    },
+    {
+      "stem": "night_cam_08_00164",
+      "image": "night_cam_08_00164.jpg",
+      "bucket": "human",
+      "al_score": 3.03,
+      "min_conf": 0.55,
+      "mean_conf": 0.5774,
+      "num_objects": 31,
+      "reasons": [
+        "low_conf(<0.60):26",
+        "mid_conf(0.60-0.85):5",
+        "mask_quality_low:1",
+        "legacy_prior_only(old=0)",
+        "legacy_prior_only(old=1)",
+        "legacy_prior_only(old=2)"
+      ]
+    },
+    {
+      "stem": "day_cam_02_00260",
+      "image": "day_cam_02_00260.jpg",
+      "bucket": "human",
+      "al_score": 3.0213,
+      "min_conf": 0.2825,
+      "mean_conf": 0.5574,
+      "num_objects": 12,
+      "reasons": [
+        "low_conf(<0.60):8",
+        "mid_conf(0.60-0.85):4",
+        "legacy_class_conflict(old=0,new=0)",
+        "legacy_prior_only(old=0)",
+        "legacy_prior_only(old=1)"
+      ]
+    },
+    {
+      "stem": "night_cam_17_00318",
+      "image": "night_cam_17_00318.jpg",
+      "bucket": "human",
+      "al_score": 3.0117,
+      "min_conf": 0.2888,
+      "mean_conf": 0.576,
+      "num_objects": 17,
+      "reasons": [
+        "low_conf(<0.60):12",
+        "mid_conf(0.60-0.85):4",
+        "legacy_class_conflict(old=0,new=0)",
+        "legacy_prior_only(old=0)",
+        "legacy_prior_only(old=1)"
+      ]
+    },
+    {
+      "stem": "night_cam_03_00340",
+      "image": "night_cam_03_00340.jpg",
+      "bucket": "human",
+      "al_score": 3.0105,
+      "min_conf": 0.343,
+      "mean_conf": 0.6316,
+      "num_objects": 14,
+      "reasons": [
+        "low_conf(<0.60):5",
+        "mid_conf(0.60-0.85):9",
+        "legacy_class_conflict(old=2,new=2)",
+        "legacy_prior_only(old=0)",
+        "legacy_prior_only(old=1)"
+      ]
+    },
+    {
+      "stem": "day_cam_14_00296",
+      "image": "day_cam_14_00296.jpg",
+      "bucket": "human",
+      "al_score": 2.972,
+      "min_conf": 0.262,
+      "mean_conf": 0.5036,
+      "num_objects": 13,
+      "reasons": [
+        "low_conf(<0.60):10",
+        "mid_conf(0.60-0.85):3",
+        "legacy_class_conflict(old=0,new=8)",
+        "legacy_prior_only(old=0)",
+        "legacy_upgraded_rider"
+      ]
+    },
+    {
+      "stem": "day_cam_16_00586",
+      "image": "day_cam_16_00586.jpg",
+      "bucket": "human",
+      "al_score": 2.9166,
+      "min_conf": 0.2722,
+      "mean_conf": 0.5142,
+      "num_objects": 28,
+      "reasons": [
+        "low_conf(<0.60):21",
+        "mid_conf(0.60-0.85):6",
+        "legacy_prior_only(old=0)",
+        "rider_ambiguity"
+      ]
+    },
+    {
+      "stem": "day_cam_09_00701",
+      "image": "day_cam_09_00701.jpg",
+      "bucket": "human",
+      "al_score": 2.8957,
+      "min_conf": 0.2862,
+      "mean_conf": 0.528,
+      "num_objects": 48,
+      "reasons": [
+        "low_conf(<0.60):42",
+        "mid_conf(0.60-0.85):5",
+        "legacy_prior_only(old=0)",
+        "legacy_upgraded_rider"
+      ]
+    },
+    {
+      "stem": "day_cam_04_00802",
+      "image": "day_cam_04_00802.jpg",
+      "bucket": "human",
+      "al_score": 2.8951,
+      "min_conf": 0.2599,
+      "mean_conf": 0.5388,
+      "num_objects": 13,
+      "reasons": [
+        "low_conf(<0.60):11",
+        "mid_conf(0.60-0.85):2",
+        "legacy_prior_only(old=0)",
+        "legacy_prior_only(old=1)",
+        "legacy_upgraded_rider"
+      ]
+    },
+    {
+      "stem": "day_cam_16_00125",
+      "image": "day_cam_16_00125.jpg",
+      "bucket": "human",
+      "al_score": 2.8677,
+      "min_conf": 0.2515,
+      "mean_conf": 0.4851,
+      "num_objects": 23,
+      "reasons": [
+        "low_conf(<0.60):19",
+        "mid_conf(0.60-0.85):4",
+        "legacy_class_conflict(old=0,new=0)",
+        "legacy_prior_only(old=0)"
+      ]
+    },
+    {
+      "stem": "day_cam_23_00025",
+      "image": "day_cam_23_00025.jpg",
+      "bucket": "human",
+      "al_score": 2.864,
+      "min_conf": 0.254,
+      "mean_conf": 0.5499,
+      "num_objects": 11,
+      "reasons": [
+        "low_conf(<0.60):7",
+        "mid_conf(0.60-0.85):4",
+        "legacy_prior_only(old=0)",
+        "legacy_upgraded_rider"
+      ]
+    },
+    {
+      "stem": "day_cam_11_00416",
+      "image": "day_cam_11_00416.jpg",
+      "bucket": "human",
+      "al_score": 2.8404,
+      "min_conf": 0.2964,
+      "mean_conf": 0.5053,
+      "num_objects": 16,
+      "reasons": [
+        "low_conf(<0.60):14",
+        "mid_conf(0.60-0.85):2",
+        "legacy_prior_only(old=0)",
+        "legacy_prior_only(old=1)",
+        "legacy_upgraded_rider"
+      ]
+    },
+    {
+      "stem": "day_cam_24_00739",
+      "image": "day_cam_24_00739.jpg",
+      "bucket": "human",
+      "al_score": 2.838,
+      "min_conf": 0.262,
+      "mean_conf": 0.4768,
+      "num_objects": 23,
+      "reasons": [
+        "low_conf(<0.60):23",
+        "legacy_class_conflict(old=0,new=8)",
+        "legacy_class_conflict(old=2,new=2)",
+        "legacy_prior_only(old=0)",
+        "legacy_upgraded_rider",
+        "pair_confusion:Truck_vs_Car(margin=0.17)"
+      ]
+    },
+    {
+      "stem": "night_cam_17_00264",
+      "image": "night_cam_17_00264.jpg",
+      "bucket": "human",
+      "al_score": 2.831,
+      "min_conf": 0.3293,
+      "mean_conf": 0.5872,
+      "num_objects": 19,
+      "reasons": [
+        "low_conf(<0.60):14",
+        "mid_conf(0.60-0.85):5",
+        "legacy_prior_only(old=0)",
+        "legacy_prior_only(old=1)"
+      ]
+    },
+    {
+      "stem": "day_cam_23_00059",
+      "image": "day_cam_23_00059.jpg",
+      "bucket": "human",
+      "al_score": 2.8201,
+      "min_conf": 0.2566,
+      "mean_conf": 0.4201,
+      "num_objects": 11,
+      "reasons": [
+        "low_conf(<0.60):10",
+        "mid_conf(0.60-0.85):1",
+        "legacy_prior_only(old=0)",
+        "legacy_prior_only(old=1)",
+        "legacy_upgraded_rider"
+      ]
+    },
+    {
+      "stem": "day_cam_14_00340",
+      "image": "day_cam_14_00340.jpg",
+      "bucket": "human",
+      "al_score": 2.7547,
+      "min_conf": 0.2735,
+      "mean_conf": 0.4714,
+      "num_objects": 15,
+      "reasons": [
+        "low_conf(<0.60):12",
+        "mid_conf(0.60-0.85):3",
+        "legacy_prior_only(old=0)",
+        "legacy_upgraded_rider"
+      ]
+    },
+    {
+      "stem": "night_cam_22_00071",
+      "image": "night_cam_22_00071.jpg",
+      "bucket": "human",
+      "al_score": 2.6465,
+      "min_conf": 0.3723,
+      "mean_conf": 0.5311,
+      "num_objects": 9,
+      "reasons": [
+        "low_conf(<0.60):8",
+        "mid_conf(0.60-0.85):1",
+        "legacy_class_conflict(old=2,new=0)",
+        "legacy_prior_only(old=0)",
+        "legacy_prior_only(old=1)"
+      ]
+    },
+    {
+      "stem": "day_cam_18_00561",
+      "image": "day_cam_18_00561.jpg",
+      "bucket": "human",
+      "al_score": 2.6397,
+      "min_conf": 0.2603,
+      "mean_conf": 0.4646,
+      "num_objects": 11,
+      "reasons": [
+        "low_conf(<0.60):11",
+        "legacy_class_conflict(old=1,new=2)",
+        "legacy_prior_only(old=0)",
+        "legacy_upgraded_rider",
+        "pair_confusion:Truck_vs_Car(margin=0.08)"
+      ]
+    },
+    {
+      "stem": "day_cam_11_00313",
+      "image": "day_cam_11_00313.jpg",
+      "bucket": "human",
+      "al_score": 2.629,
+      "min_conf": 0.2507,
+      "mean_conf": 0.5147,
+      "num_objects": 15,
+      "reasons": [
+        "low_conf(<0.60):14",
+        "mid_conf(0.60-0.85):1",
+        "legacy_prior_only(old=0)",
+        "legacy_prior_only(old=1)"
+      ]
+    },
+    {
+      "stem": "day_cam_18_00025",
+      "image": "day_cam_18_00025.jpg",
+      "bucket": "human",
+      "al_score": 2.5651,
+      "min_conf": 0.2933,
+      "mean_conf": 0.4967,
+      "num_objects": 12,
+      "reasons": [
+        "low_conf(<0.60):11",
+        "mid_conf(0.60-0.85):1",
+        "legacy_prior_only(old=0)",
+        "legacy_prior_only(old=1)"
+      ]
+    },
+    {
+      "stem": "night_cam_13_00043",
+      "image": "night_cam_13_00043.jpg",
+      "bucket": "human",
+      "al_score": 2.54,
+      "min_conf": 0.55,
+      "mean_conf": 0.6057,
+      "num_objects": 7,
+      "reasons": [
+        "low_conf(<0.60):4",
+        "mid_conf(0.60-0.85):3",
+        "legacy_prior_only(old=0)",
+        "legacy_prior_only(old=1)",
+        "legacy_prior_only(old=3)"
+      ]
+    },
+    {
+      "stem": "day_cam_04_00341",
+      "image": "day_cam_04_00341.jpg",
+      "bucket": "human",
+      "al_score": 2.46,
+      "min_conf": 0.55,
+      "mean_conf": 0.5775,
+      "num_objects": 8,
+      "reasons": [
+        "low_conf(<0.60):6",
+        "mid_conf(0.60-0.85):2",
+        "legacy_prior_only(old=0)",
+        "legacy_prior_only(old=2)",
+        "legacy_prior_only(old=3)"
+      ]
+    },
+    {
+      "stem": "night_cam_05_00597",
+      "image": "night_cam_05_00597.jpg",
+      "bucket": "human",
+      "al_score": 2.46,
+      "min_conf": 0.55,
+      "mean_conf": 0.5814,
+      "num_objects": 7,
+      "reasons": [
+        "low_conf(<0.60):5",
+        "mid_conf(0.60-0.85):2",
+        "legacy_prior_only(old=0)",
+        "legacy_prior_only(old=1)",
+        "legacy_prior_only(old=3)"
+      ]
+    },
+    {
+      "stem": "night_cam_05_00658",
+      "image": "night_cam_05_00658.jpg",
+      "bucket": "human",
+      "al_score": 2.46,
+      "min_conf": 0.55,
+      "mean_conf": 0.5814,
+      "num_objects": 7,
+      "reasons": [
+        "low_conf(<0.60):5",
+        "mid_conf(0.60-0.85):2",
+        "legacy_prior_only(old=0)",
+        "legacy_prior_only(old=1)",
+        "legacy_prior_only(old=3)"
+      ]
+    },
+    {
+      "stem": "night_cam_08_00855",
+      "image": "night_cam_08_00855.jpg",
+      "bucket": "human",
+      "al_score": 2.46,
+      "min_conf": 0.55,
+      "mean_conf": 0.5679,
+      "num_objects": 19,
+      "reasons": [
+        "low_conf(<0.60):17",
+        "mid_conf(0.60-0.85):2",
+        "legacy_prior_only(old=0)",
+        "legacy_prior_only(old=1)",
+        "legacy_prior_only(old=2)"
+      ]
+    },
+    {
+      "stem": "night_cam_25_01252",
+      "image": "night_cam_25_01252.jpg",
+      "bucket": "human",
+      "al_score": 2.4467,
+      "min_conf": 0.3722,
+      "mean_conf": 0.5349,
+      "num_objects": 9,
+      "reasons": [
+        "low_conf(<0.60):8",
+        "mid_conf(0.60-0.85):1",
+        "legacy_prior_only(old=0)",
+        "legacy_prior_only(old=1)"
+      ]
+    },
+    {
+      "stem": "night_cam_19_00086",
+      "image": "night_cam_19_00086.jpg",
+      "bucket": "human",
+      "al_score": 2.4424,
+      "min_conf": 0.4284,
+      "mean_conf": 0.5738,
+      "num_objects": 13,
+      "reasons": [
+        "low_conf(<0.60):11",
+        "mid_conf(0.60-0.85):2",
+        "legacy_prior_only(old=0)",
+        "truck_trailer_split_check"
+      ]
+    },
+    {
+      "stem": "night_cam_19_00165",
+      "image": "night_cam_19_00165.jpg",
+      "bucket": "human",
+      "al_score": 2.26,
+      "min_conf": 0.55,
+      "mean_conf": 0.5878,
+      "num_objects": 9,
+      "reasons": [
+        "low_conf(<0.60):7",
+        "mid_conf(0.60-0.85):2",
+        "legacy_prior_only(old=0)",
+        "legacy_prior_only(old=1)"
+      ]
+    },
+    {
+      "stem": "night_cam_20_00494",
+      "image": "night_cam_20_00494.jpg",
+      "bucket": "human",
+      "al_score": 2.18,
+      "min_conf": 0.55,
+      "mean_conf": 0.5621,
+      "num_objects": 14,
+      "reasons": [
+        "low_conf(<0.60):13",
+        "mid_conf(0.60-0.85):1",
+        "legacy_prior_only(old=0)",
+        "legacy_prior_only(old=1)"
+      ]
+    },
+    {
+      "stem": "night_cam_20_00910",
+      "image": "night_cam_20_00910.jpg",
+      "bucket": "human",
+      "al_score": 2.18,
+      "min_conf": 0.55,
+      "mean_conf": 0.5594,
+      "num_objects": 18,
+      "reasons": [
+        "low_conf(<0.60):17",
+        "mid_conf(0.60-0.85):1",
+        "legacy_prior_only(old=0)",
+        "legacy_prior_only(old=1)"
+      ]
+    },
+    {
+      "stem": "night_cam_22_00091",
+      "image": "night_cam_22_00091.jpg",
+      "bucket": "human",
+      "al_score": 2.18,
+      "min_conf": 0.55,
+      "mean_conf": 0.5743,
+      "num_objects": 7,
+      "reasons": [
+        "low_conf(<0.60):6",
+        "mid_conf(0.60-0.85):1",
+        "legacy_prior_only(old=0)",
+        "legacy_prior_only(old=1)"
+      ]
+    },
+    {
+      "stem": "night_cam_13_00812",
+      "image": "night_cam_13_00812.jpg",
+      "bucket": "human",
+      "al_score": 2.0636,
+      "min_conf": 0.3864,
+      "mean_conf": 0.5252,
+      "num_objects": 7,
+      "reasons": [
+        "low_conf(<0.60):7",
+        "legacy_class_conflict(old=3,new=0)",
+        "legacy_class_conflict(old=3,new=1)",
+        "legacy_prior_only(old=0)"
+      ]
+    },
+    {
+      "stem": "day_cam_04_00401",
+      "image": "day_cam_04_00401.jpg",
+      "bucket": "human",
+      "al_score": 1.9558,
+      "min_conf": 0.2942,
+      "mean_conf": 0.4803,
+      "num_objects": 10,
+      "reasons": [
+        "low_conf(<0.60):10",
+        "legacy_prior_only(old=0)",
+        "legacy_upgraded_rider"
+      ]
+    }
+  ]
+}

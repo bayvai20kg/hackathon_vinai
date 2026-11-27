@@ -1,0 +1,51 @@
+rank,image,al_score,min_conf,num_objects,reasons
+1,day_cam_24_00596.jpg,3.5991,0.2506,20,low_conf(<0.60):13; mid_conf(0.60-0.85):5; legacy_unmatched:5; pair_confusion:Motorcycle_vs_Motorcyclist(margin=0.10); pair_confusion:Motorcyclist_vs_Motorcycle(margin=0.01); pair_confusion:Motorcyclist_vs_Motorcycle(margin=0.10)
+2,day_cam_09_00434.jpg,3.5915,0.2557,17,low_conf(<0.60):12; mid_conf(0.60-0.85):5; legacy_unmatched:26; pair_confusion:Motorcycle_vs_Motorcyclist(margin=0.05); pair_confusion:Motorcyclist_vs_Motorcycle(margin=0.13); pair_confusion:Motorcyclist_vs_Motorcycle(margin=0.15)
+3,day_cam_10_00718.jpg,3.5854,0.2598,26,low_conf(<0.60):19; mid_conf(0.60-0.85):6; legacy_unmatched:20; pair_confusion:Car_vs_Bus(margin=0.17); pair_confusion:Motorcycle_vs_Motorcyclist(margin=0.02); pair_confusion:Motorcycle_vs_Motorcyclist(margin=0.13); pair_confusion:Motorcycle_vs_Motorcyclist(margin=0.19); pair_confusion:Motorcyclist_vs_Motorcycle(margin=0.11); pair_confusion:Motorcyclist_vs_Motorcycle(margin=0.14)
+4,day_cam_09_00701.jpg,3.5786,0.2643,24,low_conf(<0.60):17; mid_conf(0.60-0.85):5; legacy_unmatched:25; pair_confusion:Motorcycle_vs_Motorcyclist(margin=0.19); pair_confusion:Motorcyclist_vs_Motorcycle(margin=0.02); pair_confusion:Motorcyclist_vs_Motorcycle(margin=0.05); pair_confusion:Motorcyclist_vs_Motorcycle(margin=0.13)
+5,day_cam_16_00125.jpg,3.5611,0.276,21,low_conf(<0.60):15; mid_conf(0.60-0.85):6; legacy_unmatched:4; pair_confusion:Motorcycle_vs_Motorcyclist(margin=0.05); pair_confusion:Motorcyclist_vs_Car(margin=0.08); pair_confusion:Motorcyclist_vs_Motorcycle(margin=0.00); pair_confusion:Motorcyclist_vs_Motorcycle(margin=0.08)
+6,day_cam_18_00025.jpg,3.5143,0.2538,15,low_conf(<0.60):9; mid_conf(0.60-0.85):4; legacy_unmatched:4; pair_confusion:Motorcycle_vs_Motorcyclist(margin=0.12); pair_confusion:Motorcycle_vs_Motorcyclist(margin=0.15); pair_confusion:Motorcyclist_vs_Motorcycle(margin=0.02)
+7,day_cam_12_00392.jpg,3.4976,0.265,20,low_conf(<0.60):14; mid_conf(0.60-0.85):4; legacy_unmatched:4; pair_confusion:Motorcyclist_vs_Car(margin=0.06); pair_confusion:Motorcyclist_vs_Car(margin=0.14); pair_confusion:Motorcyclist_vs_Motorcycle(margin=0.00)
+8,day_cam_16_00586.jpg,3.4893,0.2571,33,low_conf(<0.60):16; mid_conf(0.60-0.85):14; legacy_unmatched:5; pair_confusion:Motorcycle_vs_Motorcyclist(margin=0.11); pair_confusion:Motorcyclist_vs_Motorcycle(margin=0.13)
+9,day_cam_12_00650.jpg,3.4653,0.2731,20,low_conf(<0.60):14; mid_conf(0.60-0.85):5; legacy_unmatched:2; pair_confusion:Motorcyclist_vs_Motorcycle(margin=0.14); pair_confusion:Motorcyclist_vs_Motorcycle(margin=0.19)
+10,day_cam_07_00621.jpg,3.4578,0.2781,26,low_conf(<0.60):17; mid_conf(0.60-0.85):6; legacy_unmatched:2; pair_confusion:Car_vs_Motorcyclist(margin=0.07); pair_confusion:Motorcycle_vs_Motorcyclist(margin=0.01); pair_confusion:Truck_vs_Car(margin=0.09)
+11,night_cam_17_00264.jpg,3.4151,0.2532,20,low_conf(<0.60):15; mid_conf(0.60-0.85):4; legacy_unmatched:8; pair_confusion:Car_vs_Motorcyclist(margin=0.05); pair_confusion:Truck_vs_Car(margin=0.11)
+12,day_cam_02_00241.jpg,3.3971,0.2519,16,low_conf(<0.60):8; mid_conf(0.60-0.85):7; legacy_unmatched:7; pair_confusion:Bus_vs_Truck(margin=0.17)
+13,day_cam_24_00739.jpg,3.3959,0.2527,17,low_conf(<0.60):12; mid_conf(0.60-0.85):5; legacy_unmatched:13; pair_confusion:Motorcycle_vs_Motorcyclist(margin=0.15)
+14,night_cam_03_00340.jpg,3.3888,0.2908,21,low_conf(<0.60):13; mid_conf(0.60-0.85):8; legacy_unmatched:3; pair_confusion:Car_vs_Bus(margin=0.13); pair_confusion:Motorcyclist_vs_Car(margin=0.02)
+15,day_cam_10_00682.jpg,3.3521,0.2552,14,low_conf(<0.60):12; mid_conf(0.60-0.85):2; legacy_unmatched:23; pair_confusion:Car_vs_Motorcyclist(margin=0.09); pair_confusion:Car_vs_Truck(margin=0.04); pair_confusion:Motorcycle_vs_Motorcyclist(margin=0.01); pair_confusion:Motorcyclist_vs_Motorcycle(margin=0.08); pair_confusion:Motorcyclist_vs_Motorcycle(margin=0.17)
+16,day_cam_04_00341.jpg,3.3328,0.2615,24,low_conf(<0.60):14; mid_conf(0.60-0.85):9; legacy_unmatched:1; pair_confusion:Bus_vs_Car(margin=0.06); pair_confusion:Truck_vs_Car(margin=0.16)
+17,day_cam_04_00802.jpg,3.2978,0.2515,34,low_conf(<0.60):15; mid_conf(0.60-0.85):17; legacy_unmatched:2; pair_confusion:Car_vs_Truck(margin=0.04)
+18,day_cam_01_00417.jpg,3.2861,0.2592,14,low_conf(<0.60):9; mid_conf(0.60-0.85):5; legacy_unmatched:2; pair_confusion:Bus_vs_Truck(margin=0.02)
+19,night_cam_15_00108.jpg,3.2849,0.2734,16,low_conf(<0.60):11; mid_conf(0.60-0.85):4; legacy_unmatched:4; pair_confusion:Bus_vs_Truck(margin=0.08)
+20,night_cam_19_00086.jpg,3.2742,0.3072,8,low_conf(<0.60):6; mid_conf(0.60-0.85):2; legacy_unmatched:5; pair_confusion:Motorcyclist_vs_Car(margin=0.00); truck_trailer_split_check
+21,night_cam_25_01252.jpg,3.227,0.2786,17,low_conf(<0.60):12; mid_conf(0.60-0.85):4; legacy_unmatched:1; pair_confusion:Car_vs_Truck(margin=0.00); pair_confusion:Motorcyclist_vs_Motorcycle(margin=0.08)
+22,day_cam_06_00373.jpg,3.2209,0.2761,18,low_conf(<0.60):13; mid_conf(0.60-0.85):2; legacy_unmatched:4; pair_confusion:Motorcyclist_vs_Motorcycle(margin=0.20); pair_confusion:Truck_vs_Bus(margin=0.10)
+23,day_cam_14_00340.jpg,3.1786,0.2643,21,low_conf(<0.60):14; mid_conf(0.60-0.85):5; pair_confusion:Car_vs_Bus(margin=0.01); pair_confusion:Motorcyclist_vs_Motorcycle(margin=0.05); pair_confusion:Motorcyclist_vs_Motorcycle(margin=0.11); pair_confusion:Motorcyclist_vs_Motorcycle(margin=0.15)
+24,day_cam_23_00025.jpg,3.1673,0.2652,15,low_conf(<0.60):10; mid_conf(0.60-0.85):3; legacy_unmatched:1; pair_confusion:Car_vs_Bus(margin=0.20); pair_confusion:Car_vs_Truck(margin=0.06)
+25,day_cam_14_00296.jpg,3.1636,0.3409,14,low_conf(<0.60):6; mid_conf(0.60-0.85):7; legacy_unmatched:2; pair_confusion:Motorcyclist_vs_Motorcycle(margin=0.16)
+26,night_cam_08_00164.jpg,3.1466,0.2589,16,low_conf(<0.60):14; mid_conf(0.60-0.85):2; legacy_unmatched:20; pair_confusion:Motorcyclist_vs_Car(margin=0.08)
+27,day_cam_01_00770.jpg,3.1328,0.3215,14,low_conf(<0.60):9; mid_conf(0.60-0.85):3; legacy_unmatched:4; pair_confusion:Bus_vs_Car(margin=0.19)
+28,day_cam_11_00416.jpg,3.128,0.2713,11,low_conf(<0.60):8; mid_conf(0.60-0.85):2; legacy_unmatched:8; pair_confusion:Car_vs_Bus(margin=0.02)
+29,day_cam_11_00313.jpg,3.1167,0.2789,16,low_conf(<0.60):14; mid_conf(0.60-0.85):2; legacy_unmatched:6; pair_confusion:Car_vs_Bus(margin=0.11)
+30,day_cam_02_00260.jpg,3.1145,0.2803,9,low_conf(<0.60):4; mid_conf(0.60-0.85):2; legacy_unmatched:2; pair_confusion:Bus_vs_Car(margin=0.02); pair_confusion:Car_vs_Bus(margin=0.04)
+31,night_cam_13_00043.jpg,3.0559,0.2527,9,low_conf(<0.60):6; mid_conf(0.60-0.85):2; legacy_unmatched:2; pair_confusion:Car_vs_Motorcyclist(margin=0.05)
+32,day_cam_06_00831.jpg,3.0275,0.265,15,low_conf(<0.60):10; mid_conf(0.60-0.85):5; legacy_unmatched:2; truck_trailer_split_check
+33,day_cam_18_00561.jpg,2.9822,0.2819,9,low_conf(<0.60):7; mid_conf(0.60-0.85):1; legacy_unmatched:3; pair_confusion:Bus_vs_Truck(margin=0.19)
+34,night_cam_05_00658.jpg,2.9741,0.3073,10,low_conf(<0.60):6; mid_conf(0.60-0.85):2; legacy_unmatched:2; pair_confusion:Bus_vs_Truck(margin=0.19)
+35,day_cam_04_00401.jpg,2.9474,0.2517,21,low_conf(<0.60):13; mid_conf(0.60-0.85):6; legacy_unmatched:5
+36,night_cam_17_00318.jpg,2.9349,0.2601,12,low_conf(<0.60):6; mid_conf(0.60-0.85):6; legacy_unmatched:7
+37,night_cam_15_01053.jpg,2.9333,0.2611,15,low_conf(<0.60):6; mid_conf(0.60-0.85):5; legacy_unmatched:10
+38,night_cam_08_00855.jpg,2.9126,0.2749,21,low_conf(<0.60):14; mid_conf(0.60-0.85):6; legacy_unmatched:14
+39,night_cam_13_00812.jpg,2.8519,0.2554,7,low_conf(<0.60):5; mid_conf(0.60-0.85):2; pair_confusion:Bus_vs_Motorcyclist(margin=0.01); pair_confusion:Motorcyclist_vs_Car(margin=0.08)
+40,night_cam_20_00494.jpg,2.8363,0.3258,12,low_conf(<0.60):6; mid_conf(0.60-0.85):5; legacy_unmatched:6
+41,night_cam_20_00910.jpg,2.8304,0.2764,23,low_conf(<0.60):17; mid_conf(0.60-0.85):4; legacy_unmatched:7
+42,night_cam_22_00091.jpg,2.7522,0.2619,9,low_conf(<0.60):5; mid_conf(0.60-0.85):4; legacy_unmatched:2
+43,night_cam_22_00071.jpg,2.7051,0.2533,10,low_conf(<0.60):8; mid_conf(0.60-0.85):2; legacy_unmatched:4
+44,day_cam_07_00139.jpg,2.6942,0.2805,13,low_conf(<0.60):9; mid_conf(0.60-0.85):3; legacy_unmatched:3
+45,night_cam_03_00198.jpg,2.6906,0.263,12,low_conf(<0.60):9; mid_conf(0.60-0.85):2; legacy_unmatched:4
+46,day_cam_23_00059.jpg,2.6618,0.2822,10,low_conf(<0.60):7; mid_conf(0.60-0.85):2; legacy_unmatched:6
+47,day_cam_02_00142.jpg,2.5659,0.3061,7,low_conf(<0.60):2; mid_conf(0.60-0.85):5; legacy_unmatched:13
+48,day_cam_01_00908.jpg,2.5352,0.2599,18,low_conf(<0.60):11; mid_conf(0.60-0.85):6
+49,night_cam_05_00597.jpg,2.482,0.302,10,low_conf(<0.60):7; mid_conf(0.60-0.85):2; legacy_unmatched:1
+50,night_cam_19_00165.jpg,2.4502,0.3232,16,low_conf(<0.60):12; mid_conf(0.60-0.85):2; legacy_unmatched:1

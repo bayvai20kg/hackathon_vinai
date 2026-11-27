@@ -1,25 +1,21 @@
-# Dataset & raw labels (large local data)
-images/
-labels/
-
 # Model weights & checkpoints
 weights/
+**/weights/
 *.pt
 *.pth
 *.onnx
 *.ts
 *.safetensors
 
-# Pipeline working outputs & CVAT exports
-pipeline_work/
-runs/
-datasets/
-
-# Python / IDE / Test caches
+# Python / Pytest / Ultralytics / Dataset caches
 __pycache__/
 *.py[cod]
 *$py.class
 .pytest_cache/
+*.cache
+pipeline_work/.ultralytics/
+
+# Local environment / IDE / logs
 .venv/
 venv/
 .env
