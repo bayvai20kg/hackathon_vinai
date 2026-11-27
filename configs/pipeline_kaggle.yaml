@@ -1,0 +1,57 @@
+# Kaggle / Colab GPU Preset (16GB VRAM T4/P100 + ~30GB RAM)
+# Uses YOLO11m-seg at imgsz=960 and SAM 3 ("weights/sam3.pt") when present.
+
+paths:
+  images_dir: "images"
+  legacy_labels_dir: "labels"
+  work_dir: "pipeline_work"
+  weights_dir: "weights"
+  ultralytics_config_dir: "pipeline_work/.ultralytics"
+
+detector:
+  base_model: "yolo11m-seg.pt"
+  bootstrap_yoloe_model: "yoloe-11l-seg-pf.pt"
+  bootstrap_coco_model: "yolo11m-seg.pt"
+  imgsz: 960
+  batch: 8
+  epochs_warmup: 40
+  epochs_retrain: 35
+  workers: 4
+  amp: true
+  device: "auto"
+  predict_conf: 0.25
+  raw_probe_conf: 0.15
+  nms_iou: 0.55
+
+segmenter:
+  sam3_weights: "weights/sam3.pt"
+  fallback_weights: "weights/sam2.1_b.pt"
+  fallback_auto_name: "sam2.1_b.pt"
+  prefer_sam3: true
+  min_vram_gb_for_sam3: 7.5
+  min_ram_gb_for_sam3: 11.0
+  sam_conf: 0.25
+  sam_imgsz: 1024
+  sam3_imgsz: 1008
+  multimask_output: false
+  polygon_epsilon_ratio: 0.002
+  min_mask_area_px: 24
+
+active_learning:
+  auto_label_conf_thresh: 0.85
+  uncertain_conf_thresh: 0.60
+  pair_confusion_margin: 0.20
+  pair_confusion_iou: 0.65
+  min_mask_bbox_iou: 0.40
+  rider_overlap_thresh: 0.25
+  rider_borderline_low: 0.08
+  rider_borderline_high: 0.30
+  large_truck_area_thresh: 0.14
+  legacy_match_iou: 0.30
+  cvat_batch_size: 200
+  warmup_sample_size: 200
+
+dataset_split:
+  val_ratio: 0.15
+  seed: 42
+  camera_grouped: true

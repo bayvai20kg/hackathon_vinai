@@ -156,9 +156,10 @@ def cmd_warmup_export(
     batch_name: str = "warmup_batch",
     force_sam3: bool = False,
     force_fallback: bool = False,
+    config_path: Path | None = None,
 ) -> dict[str, Any]:
     """Step 1: Sample diverse images, generate bootstrap SAM pre-labels, and export CVAT ZIP."""
-    cfg = load_pipeline_config(project_root)
+    cfg = load_pipeline_config(project_root, config_path=config_path)
     taxonomy = load_taxonomy(project_root / "configs" / "classes_11.yaml")
 
     selected = select_diverse_images(cfg.images_dir, num_images, exclude_stems=_existing_labeled_stems(cfg))
@@ -195,9 +196,9 @@ def cmd_warmup_export(
     }
 
 
-def cmd_import_cvat(project_root: Path, import_path: Path) -> dict[str, Any]:
+def cmd_import_cvat(project_root: Path, import_path: Path, config_path: Path | None = None) -> dict[str, Any]:
     """Import human-corrected annotations from CVAT ZIP/JSON/folder into human_verified/."""
-    cfg = load_pipeline_config(project_root)
+    cfg = load_pipeline_config(project_root, config_path=config_path)
     taxonomy = load_taxonomy(project_root / "configs" / "classes_11.yaml")
     return import_cvat_annotations(import_path, cfg, taxonomy)
 
@@ -209,9 +210,10 @@ def cmd_train(
     epochs: int | None = None,
     batch: int | None = None,
     imgsz: int | None = None,
+    config_path: Path | None = None,
 ) -> dict[str, Any]:
     """Step 1/5: Train or retrain YOLO11-seg on merged human_verified + auto_labeled data."""
-    cfg = load_pipeline_config(project_root)
+    cfg = load_pipeline_config(project_root, config_path=config_path)
     taxonomy = load_taxonomy(project_root / "configs" / "classes_11.yaml")
     return train_yolo11_seg(
         cfg=cfg,
@@ -232,9 +234,10 @@ def cmd_al_step(
     max_cvat_export: int | None = None,
     force_sam3: bool = False,
     force_fallback: bool = False,
+    config_path: Path | None = None,
 ) -> dict[str, Any]:
     """Steps 2-4: YOLO11 inference -> uncertainty routing -> SAM3/2.1 auto-label (>0.85) + CVAT export (<0.60/uncertain)."""
-    cfg = load_pipeline_config(project_root)
+    cfg = load_pipeline_config(project_root, config_path=config_path)
     taxonomy = load_taxonomy(project_root / "configs" / "classes_11.yaml")
 
     labeled = _existing_labeled_stems(cfg)
@@ -319,9 +322,10 @@ def cmd_demo_50(
     train_epochs: int = 5,
     force_sam3: bool = False,
     force_fallback: bool = False,
+    config_path: Path | None = None,
 ) -> dict[str, Any]:
     """Run full end-to-end pipeline test on 50 diverse images without modifying production verified labels."""
-    cfg = load_pipeline_config(project_root)
+    cfg = load_pipeline_config(project_root, config_path=config_path)
     taxonomy = load_taxonomy(project_root / "configs" / "classes_11.yaml")
 
     demo_dir = cfg.dirs.work_dir / "demo_50"
