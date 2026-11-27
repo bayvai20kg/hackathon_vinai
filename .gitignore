@@ -22,3 +22,8 @@ venv/
 .vscode/
 .idea/
 *.log
+
+# Large ZIP archives (>100MB GitHub limit)
+full_1460_kaggle_review.zip
+images/images.zip
+pipeline_work/cvat_export/full_1460_prelabel/*.zip
